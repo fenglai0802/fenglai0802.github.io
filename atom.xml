@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-08-01T15:13:12.000Z</updated>
+  <updated>2016-08-03T02:45:20.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,58 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>利用模块n管理node版本</title>
+    <link href="http://yoursite.com/2016/08/03/%E5%88%A9%E7%94%A8%E6%A8%A1%E5%9D%97n%E7%AE%A1%E7%90%86node%E7%89%88%E6%9C%AC/"/>
+    <id>http://yoursite.com/2016/08/03/利用模块n管理node版本/</id>
+    <published>2016-08-03T02:44:47.000Z</published>
+    <updated>2016-08-03T02:45:20.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="利用模块n管理node版本"><a href="#利用模块n管理node版本" class="headerlink" title="利用模块n管理node版本"></a>利用模块n管理node版本</h3><ul>
+<li>由于node的版本迭代速度非常快，所以版本多样，所以升级版本或者切换版本都比较麻烦。本文介绍一下模块n的好处。</li>
+</ul>
+<h5 id="n"><a href="#n" class="headerlink" title="n"></a>n</h5><ul>
+<li><p>n是node的一个模块，作者是TJ Holowaychuk（鼎鼎大名的Express框架作者），就像它的名字一样，它的理念就是简单：</p>
+<blockquote>
+<p>no subshells, no profile setup, no convoluted api, just simple</p>
+</blockquote>
+</li>
+<li><p>安装n</p>
+<pre><code>$ sudo npm install -g n
+</code></pre></li>
+<li><p>安装完成之后，直接输入n后控制台就会输出当前已安装的node版本以及正在使用的版本（前面有个o的），通过上下方向键来选择想要使用的版本，回车生效。</p>
+<pre><code>$ n
+    0.10.1
+o   6.0.0
+</code></pre></li>
+<li><p>安装指定版本node</p>
+<pre><code>$ n 6.0.0
+</code></pre></li>
+<li><p>安装最新版本node</p>
+<pre><code>$ n latest
+</code></pre></li>
+<li><p>安装稳定版本node</p>
+<pre><code>$ n stable
+</code></pre></li>
+<li><p>删除某个版本</p>
+<pre><code>$ n rm 0.10.1
+</code></pre></li>
+<li><p>以指定的版本来执行脚本</p>
+<pre><code>$ n use 0.10.21 some.js
+</code></pre></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;利用模块n管理node版本&quot;&gt;&lt;a href=&quot;#利用模块n管理node版本&quot; class=&quot;headerlink&quot; title=&quot;利用模块n管理node版本&quot;&gt;&lt;/a&gt;利用模块n管理node版本&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;由于node的版本迭代速度非常快，所以版
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Hello World</title>
