@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-08-03T10:03:03.000Z</updated>
+  <updated>2016-08-04T02:33:47.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,94 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>鼠标跟随旋转效果实现</title>
+    <link href="http://yoursite.com/2016/08/04/%E9%BC%A0%E6%A0%87%E8%B7%9F%E9%9A%8F%E6%97%8B%E8%BD%AC%E6%95%88%E6%9E%9C%E5%AE%9E%E7%8E%B0/"/>
+    <id>http://yoursite.com/2016/08/04/鼠标跟随旋转效果实现/</id>
+    <published>2016-08-03T16:30:11.000Z</published>
+    <updated>2016-08-04T02:33:47.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="鼠标跟随的3D转动"><a href="#鼠标跟随的3D转动" class="headerlink" title="鼠标跟随的3D转动"></a>鼠标跟随的3D转动</h3><p>首先，甩一枚简单的<a href="http://runjs.cn/detail/1hnseaw3" target="_blank" rel="external">demo</a>看下要实现的效果。点击右下角可查看源码。</p>
+<p>ok，直接开干，这个demo里面主要用到了两个属性：<code>transform</code>和<code>perspective</code>。分别可以设置3D和透视投影的效果。</p>
+<h3 id="3D变换效果"><a href="#3D变换效果" class="headerlink" title="3D变换效果"></a>3D变换效果</h3><p>首先介绍下<code>transform</code>，写过一丢丢动画的孩子都会接触过的属性。<code>CSS3</code>的3D效果是使用<code>transform</code>的<code>rotateX(Y, Z)</code>，<code>translateX(Y, Z)</code>，<code>scaleX(Y, Z)</code>方法进行设置的。</p>
+<img src="/2016/08/04/鼠标跟随旋转效果实现/坐标.jpg" alt="坐标系" title="坐标系">
+<p>上图就是一个3D坐标系，需要注意的是，3D元素的原点应该是在元素的中心，而不是像上图一样在立方体的一个角上。如果只是单单一个元素的话，它的形状就是一个平面区域。下面简单介绍一下<code>transform</code>中相关的3D方法。</p>
+<h5 id="rotateX-Y-Z"><a href="#rotateX-Y-Z" class="headerlink" title="rotateX(Y, Z)"></a>rotateX(Y, Z)</h5><p>顾名思义就是绕着X轴（Y轴或者Z轴）旋转。注意：<strong>逆时针为正方向</strong>（如图）</p>
+<h5 id="translateX-Y-Z"><a href="#translateX-Y-Z" class="headerlink" title="translateX(Y, Z)"></a>translateX(Y, Z)</h5><p>默认情况下，开启的是平面投影，所以此时设置<code>translateZ</code>是没有什么luan用的。那怎么生效呢，看下去才告诉你（╭(╯^╰)╮）。</p>
+<h5 id="scaleX-Y-Z"><a href="#scaleX-Y-Z" class="headerlink" title="scaleX(Y, Z)"></a>scaleX(Y, Z)</h5><p>缩放，好理解。偶尔会用来做字号的特殊处理，比如像chrome默认的最小字号是<code>12px</code>，要是你家视觉非要设置<code>10px</code>大小的字体咋整，那就给他一巴掌，叫他要求这么多（现实情况是可以用这个属性来解决……）。</p>
+<p>题外话：chrome的默认最小字号可以在设置中更改，不过你的用户可不管这些。</p>
+<hr>
+<h5 id="transform-style属性"><a href="#transform-style属性" class="headerlink" title="transform-style属性"></a>transform-style属性</h5><p>它有两个值：</p>
+<ul>
+<li><code>flat</code>(默认，顾名思义就是平面状态，所以上面说的设置translateZ才会失效。)</li>
+<li><code>preserve-3d</code></li>
+</ul>
+<p>聪明如你马上明白<code>preserve-3d</code>才是主角，设置了<code>transform-style: preserve-3d</code>的父元素会生成一个3D空间，把所有的<strong>子元素</strong>都包括在这个3D空间内。</p>
+<p><strong>注意</strong>：上面说的是<strong>子元素</strong> ，不是<strong>后代元素</strong>，看看demo中的<code>我是preserve-3d的孙子</code>这行字所在的元素，Z值和它爸爸<code>黑月</code>是不同的，但是转动卡片发现，视觉效果上他们是在同一个Z值平面的。那要让孙子上的Z值也生效呢？啥，你还不知道！那你再看一遍上面的两段话- -。（答案：在<code>黑月</code>上再设置一次这个属性，可以在demo上尝试修改下看看）。</p>
+<p>对于父元素设置的<code>transform</code>属性，都会应用到生成的这个3D空间，对整个空间进行3D操作（旋转，平移，缩放）。最后会把所有的元素投影到<code>屏幕</code>上，不是父元素上！</p>
+<p>当<code>transform-style</code>的值为<code>flat</code>时，子元素和父元素是互相独立的，并没有在父元素的3D空间内，他们各自做各自的3D变换，然后<strong>按照先后顺序</strong>投影到父元素上。这也是<code>flat</code>时，translateZ失效的原因。</p>
+<p><strong>tips</strong>：设置在transform属性上的<code>rotateX(Y, Z)</code>，<code>translateX(Y, Z)</code>，<code>scaleX(Y, Z)</code>方法是从右向左执行的。</p>
+<hr>
+<h3 id="透视投影"><a href="#透视投影" class="headerlink" title="透视投影"></a>透视投影</h3><p>透视投影是模拟人眼的图像观察方式，让平面上的物体呈现现实的视觉效果。</p>
+<p>有两种设置方式：</p>
+<ul>
+<li><code>perspective: none | &lt;length&gt;;</code></li>
+<li><code>transform: perspective(&lt;length&gt;) method(p) method(p) ...;</code></li>
+</ul>
+<p>第一种：可以将<strong>子元素</strong>(不包含自身，不包括后代元素)的投影效果设置为透视投影。<br>第二种：为这个元素自身开启透视投影模式。</p>
+<p>先看下<strong>3D视角</strong>的原理图，来自<a href="https://css-tricks.com/tour-performant-responsive-css-site/" target="_blank" rel="external">这里</a></p>
+<img src="/2016/08/04/鼠标跟随旋转效果实现/透视原理图.png" alt="透视原理图" title="透视原理图">
+<p>图中淡蓝色部分即电脑屏幕所在的平面（z=0的平面），眼睛所在的位置就是通过<code>perspective</code>设置的模拟焦点位置，焦点到z=0平面的距离就是<code>perspective</code>的值，而橘红色部分就是设置了<code>translateZ</code>为负值的3D元素的所在平面，3D元素到z=0平面的距离就是3D元素上<code>translateZ</code>的值，如图为负值，如果在焦点和z=0及平面之间，则为正值。</p>
+<p>这是透视的<strong>平面</strong>原理图，来自<a href="https://segmentfault.com/a/1190000003843764" target="_blank" rel="external">这里</a>。<br><img src="/2016/08/04/鼠标跟随旋转效果实现/透视原理图-平面.png" alt="透视原理图-平面" title="透视原理图-平面"></p>
+<p>通过这两张图，应该能够很直观的看出<code>perspective</code>和<code>translateZ</code>的设置对于3D元素在屏幕上产生的投影的效果了。当元素的z值大于’perspective’的值时，你就看不见它了，就像你的boss站在你的脑袋后面一样一样。一般情况下，’perspective’设置500px到1000px在视觉上比较合理。</p>
+<p>在<a href="http://runjs.cn/detail/1hnseaw3" target="_blank" rel="external">demo</a>中，如果取消<code>perspective</code>透视属性，你会发现，卡片就像一个没固定好的相框在转动，这就算是透视属性的必要性。</p>
+<p>透视投影还可以设置焦点的位置（默认在中心），因为你的脑袋也是可以动的：</p>
+<p><code>perspective-origin: x y;</code></p>
+<p><strong>到这里，3d和透视投影的相关属性就介绍完了，有什么不清楚的你可以改改<a href="http://runjs.cn/detail/1hnseaw3" target="_blank" rel="external">demo</a>测试下。</strong></p>
+<p>对不起，还没完……</p>
+<hr>
+<h3 id="鼠标跟随的实现"><a href="#鼠标跟随的实现" class="headerlink" title="鼠标跟随的实现"></a>鼠标跟随的实现</h3><p>关键是理清前面的属性，最后的鼠标跟随转动效果通过js实现应该比较简单了，监听<code>mousemove</code>事件，根据鼠标位置到3D元素的中心的<code>距离</code>，<code>除以</code>一定的<code>系数</code>，实时改变元素的<code>rotateX</code>和<code>rotateY</code>的值来达到效果。你可以通过改变<code>系数</code>的大小来控制<code>转动的灵敏度</code>。</p>
+<p>贴一下代码：</p>
+<pre><code>var o = $(&quot;#card&quot;);
+$(&quot;#top&quot;).on(&quot;mousemove&quot;, function(t) {
+    var e = -($(window).innerWidth() / 2 - t.pageX) / 20,
+        n = ($(window).innerHeight() / 2 - t.pageY) / 10;
+    o.attr(&quot;style&quot;,
+        &quot;transform: rotateY(&quot; + e + &quot;deg) rotateX(&quot; + n + &quot;deg);
+        -webkit-transform: rotateY(&quot; + e + &quot;deg) rotateX(&quot; + n + &quot;deg);
+        -moz-transform: rotateY(&quot; + e + &quot;deg) rotateX(&quot; + n + &quot;deg)&quot;
+    )
+})
+</code></pre><hr>
+<p><strong> THE END……能看到这里的人真是让俺感动啊~</strong></p>
+<p>养成好习惯，顺手打广告：这个动效用在了<a href="https://youdata.netease.com/" target="_blank" rel="external">网易有数</a>的首页。<strong>网易有数</strong>是一款敏捷数据分析平台，欢迎使用体验。</p>
+<p>参考自：</p>
+<ul>
+<li><a href="https://css-tricks.com/tour-performant-responsive-css-site/" target="_blank" rel="external">Tour of a Performant and Responsive CSS Only Site</a></li>
+<li><a href="https://segmentfault.com/a/1190000003843764" target="_blank" rel="external">3D效果 &amp; 透视</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;鼠标跟随的3D转动&quot;&gt;&lt;a href=&quot;#鼠标跟随的3D转动&quot; class=&quot;headerlink&quot; title=&quot;鼠标跟随的3D转动&quot;&gt;&lt;/a&gt;鼠标跟随的3D转动&lt;/h3&gt;&lt;p&gt;首先，甩一枚简单的&lt;a href=&quot;http://runjs.cn/detail/1
+    
+    </summary>
+    
+      <category term="CSS" scheme="http://yoursite.com/categories/CSS/"/>
+    
+    
+      <category term="3d" scheme="http://yoursite.com/tags/3d/"/>
+    
+      <category term="转动" scheme="http://yoursite.com/tags/%E8%BD%AC%E5%8A%A8/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Hexo + GitHub Pages 构建博客</title>
     <link href="http://yoursite.com/2016/08/03/Hexo-GitHub-Pages-%E6%9E%84%E5%BB%BA%E5%8D%9A%E5%AE%A2/"/>
     <id>http://yoursite.com/2016/08/03/Hexo-GitHub-Pages-构建博客/</id>
     <published>2016-08-03T04:54:27.000Z</published>
-    <updated>2016-08-03T10:03:03.000Z</updated>
+    <updated>2016-08-04T02:34:53.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="1-介绍篇"><a href="#1-介绍篇" class="headerlink" title="1. 介绍篇"></a>1. 介绍篇</h2><p><a href="https://fenglai0802.github.io/" target="_blank" rel="external">DEMO</a></p>
 <h4 id="什么是Hexo"><a href="#什么是Hexo" class="headerlink" title="什么是Hexo"></a>什么是Hexo</h4><p><a href="https://hexo.io/" target="_blank" rel="external">Hexo</a> 是一个简单地、轻量地、基于Node的一个静态博客框架，可以方便的生成静态网页。作者是台湾大学生tommy351。</p>
@@ -122,6 +205,14 @@ $ hexo deploy
     
     </summary>
     
+      <category term="常规" scheme="http://yoursite.com/categories/%E5%B8%B8%E8%A7%84/"/>
+    
+    
+      <category term="hexo" scheme="http://yoursite.com/tags/hexo/"/>
+    
+      <category term="github" scheme="http://yoursite.com/tags/github/"/>
+    
+      <category term="博客" scheme="http://yoursite.com/tags/%E5%8D%9A%E5%AE%A2/"/>
     
   </entry>
   
@@ -130,7 +221,7 @@ $ hexo deploy
     <link href="http://yoursite.com/2016/08/03/%E5%88%A9%E7%94%A8%E6%A8%A1%E5%9D%97n%E7%AE%A1%E7%90%86node%E7%89%88%E6%9C%AC/"/>
     <id>http://yoursite.com/2016/08/03/利用模块n管理node版本/</id>
     <published>2016-08-03T02:44:47.000Z</published>
-    <updated>2016-08-03T10:03:00.000Z</updated>
+    <updated>2016-08-04T02:35:02.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="利用模块n管理node版本"><a href="#利用模块n管理node版本" class="headerlink" title="利用模块n管理node版本"></a>利用模块n管理node版本</h3><ul>
 <li>由于node的版本迭代速度非常快，所以版本多样，所以升级版本或者切换版本都比较麻烦。本文介绍一下模块n的好处。</li>
@@ -174,6 +265,10 @@ o   6.0.0
     
     </summary>
     
+      <category term="常规" scheme="http://yoursite.com/categories/%E5%B8%B8%E8%A7%84/"/>
+    
+    
+      <category term="node版本" scheme="http://yoursite.com/tags/node%E7%89%88%E6%9C%AC/"/>
     
   </entry>
   
