@@ -285,6 +285,25 @@
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/git/" itemprop="url" rel="index">
+                    <span itemprop="name">git</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -899,7 +918,7 @@ s = s.replace(reg, 32sp);
             <h3 id="鼠标跟随的3D转动"><a href="#鼠标跟随的3D转动" class="headerlink" title="鼠标跟随的3D转动"></a>鼠标跟随的3D转动</h3><p>首先，甩一枚简单的<a href="http://runjs.cn/detail/1hnseaw3" target="_blank" rel="external">demo</a>看下要实现的效果。点击右下角可查看源码。</p>
 <p>ok，直接开干，这个demo里面主要用到了两个属性：<code>transform</code>和<code>perspective</code>。分别可以设置3D和透视投影的效果。</p>
 <h3 id="3D变换效果"><a href="#3D变换效果" class="headerlink" title="3D变换效果"></a>3D变换效果</h3><p>首先介绍下<code>transform</code>，写过一丢丢动画的孩子都会接触过的属性。<code>CSS3</code>的3D效果是使用<code>transform</code>的<code>rotateX(Y, Z)</code>，<code>translateX(Y, Z)</code>，<code>scaleX(Y, Z)</code>方法进行设置的。</p>
-<p><img src="./images/坐标.png" alt=""></p>
+<p><img src="./images/鼠标跟随旋转效果实现/坐标.png" alt=""></p>
 <p>上图就是一个3D坐标系，需要注意的是，3D元素的原点应该是在元素的中心，而不是像上图一样在立方体的一个角上。如果只是单单一个元素的话，它的形状就是一个平面区域。下面简单介绍一下<code>transform</code>中相关的3D方法。</p>
 <h5 id="rotateX-Y-Z"><a href="#rotateX-Y-Z" class="headerlink" title="rotateX(Y, Z)"></a>rotateX(Y, Z)</h5><p>顾名思义就是绕着X轴（Y轴或者Z轴）旋转。注意：<strong>逆时针为正方向</strong>（如图）</p>
 <h5 id="translateX-Y-Z"><a href="#translateX-Y-Z" class="headerlink" title="translateX(Y, Z)"></a>translateX(Y, Z)</h5><p>默认情况下，开启的是平面投影，所以此时设置<code>translateZ</code>是没有什么luan用的。那怎么生效呢，看下去才告诉你（╭(╯^╰)╮）。</p>
@@ -1381,7 +1400,7 @@ o   6.0.0
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>

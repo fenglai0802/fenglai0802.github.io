@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-09-17T07:35:35.000Z</updated>
+  <updated>2016-09-17T07:37:50.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2016/09/17/git%E5%AD%90%E6%A8%A1%E5%9D%97/"/>
     <id>http://yoursite.com/2016/09/17/git子模块/</id>
     <published>2016-09-17T07:31:17.000Z</published>
-    <updated>2016-09-17T07:35:35.000Z</updated>
+    <updated>2016-09-17T07:37:50.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="git子模块"><a href="#git子模块" class="headerlink" title="git子模块"></a>git子模块</h1><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>在开发项目A时，需要依赖项目B（实时更新）。同时希望A,B能够独立处理。</p>
 <h3 id="实际案例"><a href="#实际案例" class="headerlink" title="实际案例"></a>实际案例</h3><p>举例来说，现在我参与的项目<strong>网易有数（Youdata）</strong>，它依赖了一个独立开发的图形库<strong>NEV</strong>，他们是并行开发的。如果只是简单的将<strong>NEV</strong>的代码copy到Youdata中，显然是有点傻逼，因为无法自动更新NEV的迭代。</p>
@@ -45,6 +45,8 @@
       &lt;h1 id=&quot;git子模块&quot;&gt;&lt;a href=&quot;#git子模块&quot; class=&quot;headerlink&quot; title=&quot;git子模块&quot;&gt;&lt;/a&gt;git子模块&lt;/h1&gt;&lt;h3 id=&quot;问题&quot;&gt;&lt;a href=&quot;#问题&quot; class=&quot;headerlink&quot; title=&quot;问题&quot;&gt;&lt;
     
     </summary>
+    
+      <category term="git" scheme="http://yoursite.com/categories/git/"/>
     
     
       <category term="git" scheme="http://yoursite.com/tags/git/"/>
@@ -342,12 +344,12 @@ s = s.replace(reg, 32sp);
     <link href="http://yoursite.com/2016/08/04/%E9%BC%A0%E6%A0%87%E8%B7%9F%E9%9A%8F%E6%97%8B%E8%BD%AC%E6%95%88%E6%9E%9C%E5%AE%9E%E7%8E%B0/"/>
     <id>http://yoursite.com/2016/08/04/鼠标跟随旋转效果实现/</id>
     <published>2016-08-03T16:30:11.000Z</published>
-    <updated>2016-08-28T08:11:54.000Z</updated>
+    <updated>2016-09-17T07:39:58.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="鼠标跟随的3D转动"><a href="#鼠标跟随的3D转动" class="headerlink" title="鼠标跟随的3D转动"></a>鼠标跟随的3D转动</h3><p>首先，甩一枚简单的<a href="http://runjs.cn/detail/1hnseaw3" target="_blank" rel="external">demo</a>看下要实现的效果。点击右下角可查看源码。</p>
 <p>ok，直接开干，这个demo里面主要用到了两个属性：<code>transform</code>和<code>perspective</code>。分别可以设置3D和透视投影的效果。</p>
 <h3 id="3D变换效果"><a href="#3D变换效果" class="headerlink" title="3D变换效果"></a>3D变换效果</h3><p>首先介绍下<code>transform</code>，写过一丢丢动画的孩子都会接触过的属性。<code>CSS3</code>的3D效果是使用<code>transform</code>的<code>rotateX(Y, Z)</code>，<code>translateX(Y, Z)</code>，<code>scaleX(Y, Z)</code>方法进行设置的。</p>
-<p><img src="./images/坐标.png" alt=""></p>
+<p><img src="./images/鼠标跟随旋转效果实现/坐标.png" alt=""></p>
 <p>上图就是一个3D坐标系，需要注意的是，3D元素的原点应该是在元素的中心，而不是像上图一样在立方体的一个角上。如果只是单单一个元素的话，它的形状就是一个平面区域。下面简单介绍一下<code>transform</code>中相关的3D方法。</p>
 <h5 id="rotateX-Y-Z"><a href="#rotateX-Y-Z" class="headerlink" title="rotateX(Y, Z)"></a>rotateX(Y, Z)</h5><p>顾名思义就是绕着X轴（Y轴或者Z轴）旋转。注意：<strong>逆时针为正方向</strong>（如图）</p>
 <h5 id="translateX-Y-Z"><a href="#translateX-Y-Z" class="headerlink" title="translateX(Y, Z)"></a>translateX(Y, Z)</h5><p>默认情况下，开启的是平面投影，所以此时设置<code>translateZ</code>是没有什么luan用的。那怎么生效呢，看下去才告诉你（╭(╯^╰)╮）。</p>
