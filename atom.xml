@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-09-14T08:25:08.000Z</updated>
+  <updated>2016-09-17T07:35:35.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,44 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>git子模块</title>
+    <link href="http://yoursite.com/2016/09/17/git%E5%AD%90%E6%A8%A1%E5%9D%97/"/>
+    <id>http://yoursite.com/2016/09/17/git子模块/</id>
+    <published>2016-09-17T07:31:17.000Z</published>
+    <updated>2016-09-17T07:35:35.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="git子模块"><a href="#git子模块" class="headerlink" title="git子模块"></a>git子模块</h1><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>在开发项目A时，需要依赖项目B（实时更新）。同时希望A,B能够独立处理。</p>
+<h3 id="实际案例"><a href="#实际案例" class="headerlink" title="实际案例"></a>实际案例</h3><p>举例来说，现在我参与的项目<strong>网易有数（Youdata）</strong>，它依赖了一个独立开发的图形库<strong>NEV</strong>，他们是并行开发的。如果只是简单的将<strong>NEV</strong>的代码copy到Youdata中，显然是有点傻逼，因为无法自动更新NEV的迭代。</p>
+<h3 id="处理方式"><a href="#处理方式" class="headerlink" title="处理方式"></a>处理方式</h3><p>Git 通过子模块处理这个问题。子模块允许你将一个 Git仓库当作另外一个Git仓库的子目录。这允许你克隆另外一个仓库到你的项目中并且保持你的提交相对独立。</p>
+<h3 id="子模块相关操作："><a href="#子模块相关操作：" class="headerlink" title="子模块相关操作："></a>子模块相关操作：</h3><h4 id="1-添加子模块-git-submodule-add-url-path"><a href="#1-添加子模块-git-submodule-add-url-path" class="headerlink" title="1.添加子模块 $ git submodule add [url] [path]"></a>1.添加子模块 <code>$ git submodule add [url] [path]</code></h4><p>如</p>
+<pre><code>$ git sub module add https://git.hz.netease.com/git/NEV/NEV.git src/webapp/res/nev
+</code></pre><p>操作成功之后会生成一个.submodules的文件，其中记录了每个submodule的引用信息，知道在当前项目的位置以及仓库的所在。</p>
+<h4 id="2-查看子模块-git-submodule"><a href="#2-查看子模块-git-submodule" class="headerlink" title="2.查看子模块 $ git submodule"></a>2.查看子模块 <code>$ git submodule</code></h4><p>如图</p>
+<p><img src="./images/git子模块/1.png" alt=""></p>
+<p>ps: 如果子模块前面有一个-，说明子模块文件还未检入（空文件夹）</p>
+<h4 id="3-初始化子模块：-git-submodule-init-—-在首次检出仓库时运行一次"><a href="#3-初始化子模块：-git-submodule-init-—-在首次检出仓库时运行一次" class="headerlink" title="3.初始化子模块： $ git submodule init — 在首次检出仓库时运行一次"></a>3.初始化子模块： <code>$ git submodule init</code> — 在首次检出仓库时运行一次</h4><h4 id="4-更新子模块：-git-submodule-update"><a href="#4-更新子模块：-git-submodule-update" class="headerlink" title="4. 更新子模块：$ git submodule update"></a>4. 更新子模块：<code>$ git submodule update</code></h4><p>这个命令才是最常用的，每次子模块更新或者切换分支了，就执行一次。</p>
+<h4 id="5-删除子模块："><a href="#5-删除子模块：" class="headerlink" title="5. 删除子模块："></a>5. 删除子模块：</h4><ul>
+<li><code>$ git rm -cached [path]</code></li>
+<li>编辑<code>.gitmodules</code>文件，删除对应的子模块配置</li>
+<li>编辑<code>.git/config</code>文件，删除对应的子模块配置</li>
+<li>最后删除子模块的目录</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;git子模块&quot;&gt;&lt;a href=&quot;#git子模块&quot; class=&quot;headerlink&quot; title=&quot;git子模块&quot;&gt;&lt;/a&gt;git子模块&lt;/h1&gt;&lt;h3 id=&quot;问题&quot;&gt;&lt;a href=&quot;#问题&quot; class=&quot;headerlink&quot; title=&quot;问题&quot;&gt;&lt;
+    
+    </summary>
+    
+    
+      <category term="git" scheme="http://yoursite.com/tags/git/"/>
+    
+      <category term="子模块" scheme="http://yoursite.com/tags/%E5%AD%90%E6%A8%A1%E5%9D%97/"/>
+    
+  </entry>
   
   <entry>
     <title>图解密码技术总结</title>
