@@ -1,0 +1,691 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="3d,转动," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="黑月的BLooooog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="鼠标跟随的3D转动首先，甩一枚简单的demo看下要实现的效果。点击右下角可查看源码。
+ok，直接开干，这个demo里面主要用到了两个属性：transform和perspective。分别可以设置3D和透视投影的效果。
+3D变换效果首先介绍下transform，写过一丢丢动画的孩子都会接触过的属性。CSS3的3D效果是使用transform的rotateX(Y, Z)，translateX(Y, Z">
+<meta property="og:type" content="article">
+<meta property="og:title" content="鼠标跟随旋转效果实现">
+<meta property="og:url" content="https://fenglai0802.github.io/2016/08/04/鼠标跟随旋转效果实现/index.html">
+<meta property="og:site_name" content="黑月的BLooooog">
+<meta property="og:description" content="鼠标跟随的3D转动首先，甩一枚简单的demo看下要实现的效果。点击右下角可查看源码。
+ok，直接开干，这个demo里面主要用到了两个属性：transform和perspective。分别可以设置3D和透视投影的效果。
+3D变换效果首先介绍下transform，写过一丢丢动画的孩子都会接触过的属性。CSS3的3D效果是使用transform的rotateX(Y, Z)，translateX(Y, Z">
+<meta property="og:image" content="https://fenglai0802.github.io/./images/鼠标跟随旋转效果实现/坐标.png">
+<meta property="og:image" content="https://fenglai0802.github.io/./images/鼠标跟随旋转效果实现/透视原理图.png">
+<meta property="og:image" content="https://fenglai0802.github.io/./images/鼠标跟随旋转效果实现/透视原理图-平面.png">
+<meta property="og:updated_time" content="2016-09-17T07:39:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="鼠标跟随旋转效果实现">
+<meta name="twitter:description" content="鼠标跟随的3D转动首先，甩一枚简单的demo看下要实现的效果。点击右下角可查看源码。
+ok，直接开干，这个demo里面主要用到了两个属性：transform和perspective。分别可以设置3D和透视投影的效果。
+3D变换效果首先介绍下transform，写过一丢丢动画的孩子都会接触过的属性。CSS3的3D效果是使用transform的rotateX(Y, Z)，translateX(Y, Z">
+<meta name="twitter:image" content="https://fenglai0802.github.io/./images/鼠标跟随旋转效果实现/坐标.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://fenglai0802.github.io/2016/08/04/鼠标跟随旋转效果实现/"/>
+
+
+  <title> 鼠标跟随旋转效果实现 | 黑月的BLooooog </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">黑月的BLooooog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+            日程
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                鼠标跟随旋转效果实现
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-04T00:30:11+08:00" content="2016-08-04">
+              2016-08-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="鼠标跟随的3D转动"><a href="#鼠标跟随的3D转动" class="headerlink" title="鼠标跟随的3D转动"></a>鼠标跟随的3D转动</h3><p>首先，甩一枚简单的<a href="http://runjs.cn/detail/1hnseaw3" target="_blank" rel="external">demo</a>看下要实现的效果。点击右下角可查看源码。</p>
+<p>ok，直接开干，这个demo里面主要用到了两个属性：<code>transform</code>和<code>perspective</code>。分别可以设置3D和透视投影的效果。</p>
+<h3 id="3D变换效果"><a href="#3D变换效果" class="headerlink" title="3D变换效果"></a>3D变换效果</h3><p>首先介绍下<code>transform</code>，写过一丢丢动画的孩子都会接触过的属性。<code>CSS3</code>的3D效果是使用<code>transform</code>的<code>rotateX(Y, Z)</code>，<code>translateX(Y, Z)</code>，<code>scaleX(Y, Z)</code>方法进行设置的。</p>
+<p><img src="./images/鼠标跟随旋转效果实现/坐标.png" alt=""></p>
+<p>上图就是一个3D坐标系，需要注意的是，3D元素的原点应该是在元素的中心，而不是像上图一样在立方体的一个角上。如果只是单单一个元素的话，它的形状就是一个平面区域。下面简单介绍一下<code>transform</code>中相关的3D方法。</p>
+<h5 id="rotateX-Y-Z"><a href="#rotateX-Y-Z" class="headerlink" title="rotateX(Y, Z)"></a>rotateX(Y, Z)</h5><p>顾名思义就是绕着X轴（Y轴或者Z轴）旋转。注意：<strong>逆时针为正方向</strong>（如图）</p>
+<h5 id="translateX-Y-Z"><a href="#translateX-Y-Z" class="headerlink" title="translateX(Y, Z)"></a>translateX(Y, Z)</h5><p>默认情况下，开启的是平面投影，所以此时设置<code>translateZ</code>是没有什么luan用的。那怎么生效呢，看下去才告诉你（╭(╯^╰)╮）。</p>
+<h5 id="scaleX-Y-Z"><a href="#scaleX-Y-Z" class="headerlink" title="scaleX(Y, Z)"></a>scaleX(Y, Z)</h5><p>缩放，好理解。偶尔会用来做字号的特殊处理，比如像chrome默认的最小字号是<code>12px</code>，要是你家视觉非要设置<code>10px</code>大小的字体咋整，那就给他一巴掌，叫他要求这么多（现实情况是可以用这个属性来解决……）。</p>
+<p>题外话：chrome的默认最小字号可以在设置中更改，不过你的用户可不管这些。</p>
+<hr>
+<h5 id="transform-style属性"><a href="#transform-style属性" class="headerlink" title="transform-style属性"></a>transform-style属性</h5><p>它有两个值：</p>
+<ul>
+<li><code>flat</code>(默认，顾名思义就是平面状态，所以上面说的设置translateZ才会失效。)</li>
+<li><code>preserve-3d</code></li>
+</ul>
+<p>聪明如你马上明白<code>preserve-3d</code>才是主角，设置了<code>transform-style: preserve-3d</code>的父元素会生成一个3D空间，把所有的<strong>子元素</strong>都包括在这个3D空间内。</p>
+<p><strong>注意</strong>：上面说的是<strong>子元素</strong> ，不是<strong>后代元素</strong>，看看demo中的<code>我是preserve-3d的孙子</code>这行字所在的元素，Z值和它爸爸<code>黑月</code>是不同的，但是转动卡片发现，视觉效果上他们是在同一个Z值平面的。那要让孙子上的Z值也生效呢？啥，你还不知道！那你再看一遍上面的两段话- -。（答案：在<code>黑月</code>上再设置一次这个属性，可以在demo上尝试修改下看看）。</p>
+<p>对于父元素设置的<code>transform</code>属性，都会应用到生成的这个3D空间，对整个空间进行3D操作（旋转，平移，缩放）。最后会把所有的元素投影到<code>屏幕</code>上，不是父元素上！</p>
+<p>当<code>transform-style</code>的值为<code>flat</code>时，子元素和父元素是互相独立的，并没有在父元素的3D空间内，他们各自做各自的3D变换，然后<strong>按照先后顺序</strong>投影到父元素上。这也是<code>flat</code>时，translateZ失效的原因。</p>
+<p><strong>tips</strong>：设置在transform属性上的<code>rotateX(Y, Z)</code>，<code>translateX(Y, Z)</code>，<code>scaleX(Y, Z)</code>方法是从右向左执行的。</p>
+<hr>
+<h3 id="透视投影"><a href="#透视投影" class="headerlink" title="透视投影"></a>透视投影</h3><p>透视投影是模拟人眼的图像观察方式，让平面上的物体呈现现实的视觉效果。</p>
+<p>有两种设置方式：</p>
+<ul>
+<li><code>perspective: none | &lt;length&gt;;</code></li>
+<li><code>transform: perspective(&lt;length&gt;) method(p) method(p) ...;</code></li>
+</ul>
+<p>第一种：可以将<strong>子元素</strong>(不包含自身，不包括后代元素)的投影效果设置为透视投影。<br>第二种：为这个元素自身开启透视投影模式。</p>
+<p>先看下<strong>3D视角</strong>的原理图，来自<a href="https://css-tricks.com/tour-performant-responsive-css-site/" target="_blank" rel="external">这里</a></p>
+<p><img src="./images/鼠标跟随旋转效果实现/透视原理图.png" alt=""></p>
+<p>图中淡蓝色部分即电脑屏幕所在的平面（z=0的平面），眼睛所在的位置就是通过<code>perspective</code>设置的模拟焦点位置，焦点到z=0平面的距离就是<code>perspective</code>的值，而橘红色部分就是设置了<code>translateZ</code>为负值的3D元素的所在平面，3D元素到z=0平面的距离就是3D元素上<code>translateZ</code>的值，如图为负值，如果在焦点和z=0及平面之间，则为正值。</p>
+<p>这是透视的<strong>平面</strong>原理图，来自<a href="https://segmentfault.com/a/1190000003843764" target="_blank" rel="external">这里</a>。<br><img src="./images/鼠标跟随旋转效果实现/透视原理图-平面.png" alt=""></p>
+<p>通过这两张图，应该能够很直观的看出<code>perspective</code>和<code>translateZ</code>的设置对于3D元素在屏幕上产生的投影的效果了。当元素的z值大于’perspective’的值时，你就看不见它了，就像你的boss站在你的脑袋后面一样一样。一般情况下，’perspective’设置500px到1000px在视觉上比较合理。</p>
+<p>在<a href="http://runjs.cn/detail/1hnseaw3" target="_blank" rel="external">demo</a>中，如果取消<code>perspective</code>透视属性，你会发现，卡片就像一个没固定好的相框在转动，这就算是透视属性的必要性。</p>
+<p>透视投影还可以设置焦点的位置（默认在中心），因为你的脑袋也是可以动的：</p>
+<p><code>perspective-origin: x y;</code></p>
+<p><strong>到这里，3d和透视投影的相关属性就介绍完了，有什么不清楚的你可以改改<a href="http://runjs.cn/detail/1hnseaw3" target="_blank" rel="external">demo</a>测试下。</strong></p>
+<p>对不起，还没完……</p>
+<hr>
+<h3 id="鼠标跟随的实现"><a href="#鼠标跟随的实现" class="headerlink" title="鼠标跟随的实现"></a>鼠标跟随的实现</h3><p>关键是理清前面的属性，最后的鼠标跟随转动效果通过js实现应该比较简单了，监听<code>mousemove</code>事件，根据鼠标位置到3D元素的中心的<code>距离</code>，<code>除以</code>一定的<code>系数</code>，实时改变元素的<code>rotateX</code>和<code>rotateY</code>的值来达到效果。你可以通过改变<code>系数</code>的大小来控制<code>转动的灵敏度</code>。</p>
+<p>贴一下代码：</p>
+<pre><code>var o = $(&quot;#card&quot;);
+$(&quot;#top&quot;).on(&quot;mousemove&quot;, function(t) {
+    var e = -($(window).innerWidth() / 2 - t.pageX) / 20,
+        n = ($(window).innerHeight() / 2 - t.pageY) / 10;
+    o.attr(&quot;style&quot;,
+        &quot;transform: rotateY(&quot; + e + &quot;deg) rotateX(&quot; + n + &quot;deg);
+        -webkit-transform: rotateY(&quot; + e + &quot;deg) rotateX(&quot; + n + &quot;deg);
+        -moz-transform: rotateY(&quot; + e + &quot;deg) rotateX(&quot; + n + &quot;deg)&quot;
+    )
+})
+</code></pre><hr>
+<p><strong> THE END……能看到这里的人真是让俺感动啊~</strong></p>
+<p>养成好习惯，顺手打广告：这个动效用在了<a href="https://youdata.netease.com/" target="_blank" rel="external">网易有数</a>的首页。<strong>网易有数</strong>是一款敏捷数据分析平台，欢迎使用体验。</p>
+<p>参考自：</p>
+<ul>
+<li><a href="https://css-tricks.com/tour-performant-responsive-css-site/" target="_blank" rel="external">Tour of a Performant and Responsive CSS Only Site</a></li>
+<li><a href="https://segmentfault.com/a/1190000003843764" target="_blank" rel="external">3D效果 &amp; 透视</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/3d/" rel="tag">#3d</a>
+          
+            <a href="/tags/转动/" rel="tag">#转动</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/03/Hexo-GitHub-Pages-构建博客/" rel="next" title="Hexo + GitHub Pages 构建博客">
+                <i class="fa fa-chevron-left"></i> Hexo + GitHub Pages 构建博客
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/04/不同unicode编码的空格挖的坑/" rel="prev" title="不同unicode编码的空格挖的坑">
+                不同unicode编码的空格挖的坑 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/imgages/1.jpg"
+               alt="黑月" />
+          <p class="site-author-name" itemprop="name">黑月</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#鼠标跟随的3D转动"><span class="nav-number">1.</span> <span class="nav-text">鼠标跟随的3D转动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3D变换效果"><span class="nav-number">2.</span> <span class="nav-text">3D变换效果</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#rotateX-Y-Z"><span class="nav-number">2.0.1.</span> <span class="nav-text">rotateX(Y, Z)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#translateX-Y-Z"><span class="nav-number">2.0.2.</span> <span class="nav-text">translateX(Y, Z)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#scaleX-Y-Z"><span class="nav-number">2.0.3.</span> <span class="nav-text">scaleX(Y, Z)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#transform-style属性"><span class="nav-number">2.0.4.</span> <span class="nav-text">transform-style属性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#透视投影"><span class="nav-number">3.</span> <span class="nav-text">透视投影</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#鼠标跟随的实现"><span class="nav-number">4.</span> <span class="nav-text">鼠标跟随的实现</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">黑月</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
