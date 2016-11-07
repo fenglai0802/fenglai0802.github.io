@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://fenglai0802.github.io/"/>
-  <updated>2016-11-07T06:09:12.000Z</updated>
+  <updated>2016-11-07T07:12:28.000Z</updated>
   <id>https://fenglai0802.github.io/</id>
   
   <author>
@@ -20,10 +20,10 @@
     <link href="https://fenglai0802.github.io/2016/11/06/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%84%E4%BB%B6%E5%B0%8F%E7%BB%93/"/>
     <id>https://fenglai0802.github.io/2016/11/06/文件上传组件小结/</id>
     <published>2016-11-06T07:05:50.000Z</published>
-    <updated>2016-11-07T06:09:12.000Z</updated>
+    <updated>2016-11-07T07:12:28.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="文件-图片上传组件小结"><a href="#文件-图片上传组件小结" class="headerlink" title="文件/图片上传组件小结"></a>文件/图片上传组件小结</h1><p>分为两部分来总结，第一部分为<em>自定义样式</em>，第二部分为<em>js实现</em>。</p>
-<h3 id="一-自定义样式"><a href="#一-自定义样式" class="headerlink" title="一. 自定义样式"></a>一. 自定义样式</h3><p>通常来说，<code>input[type=file]</code>的默认样式都不能满足视觉的需求，所以需要套壳包装。常用的方式就是隐藏默认上传控件，并在其父级添加一个元素（比如label标签）来自定义样式，这样可以做到保留功能同时自定义样式。具体css代码如下：</p>
+<h2 id="一-自定义样式"><a href="#一-自定义样式" class="headerlink" title="一. 自定义样式"></a>一. 自定义样式</h2><p>通常来说，<code>input[type=file]</code>的默认样式都不能满足视觉的需求，所以需要套壳包装。常用的方式就是隐藏默认上传控件，并在其父级添加一个元素（比如label标签）来自定义样式，这样可以做到保留功能同时自定义样式。具体css代码如下：</p>
 <pre><code>//HTML5
 &lt;img src=&apos;&apos; ref=preview&gt;
 &lt;label class=&quot;u-btn btn-upload&quot;&gt;
@@ -62,7 +62,7 @@
         top: 0;right: 0
     }
 }
-</code></pre><h3 id="二-js实现"><a href="#二-js实现" class="headerlink" title="二. js实现"></a>二. js实现</h3><p>需求：上传单张图片，并能预览。</p>
+</code></pre><h2 id="二-js实现"><a href="#二-js实现" class="headerlink" title="二. js实现"></a>二. js实现</h2><p>需求：上传单张图片，并能预览。</p>
 <p>框架：<a href="https://github.com/regularjs/regular" target="_blank" rel="external">regular</a></p>
 <pre><code>// 这里使用regular框架，不详细说明
 // 在`input[type=file]`上绑定了`onchange`监听事件,回调为`fileChange`方法
@@ -106,7 +106,8 @@ fileChange: function(ev) {
 
    reader.readAsDataURL(file); // 将文件转成base64的格式.
 },
-</code></pre><h5 id="附录-FileReader-API简介"><a href="#附录-FileReader-API简介" class="headerlink" title="附录 FileReader API简介"></a>附录 FileReader API简介</h5><h6 id="1-FileReader对象的方法"><a href="#1-FileReader对象的方法" class="headerlink" title="1. FileReader对象的方法"></a>1. FileReader对象的方法</h6><p>FileReader 的实例拥有 4 个方法，其中 3 个用以读取文件，另一个用来中断读取。下面的表格列出了这些方法以及他们的参数和功能，需要注意的是 ，无论读取成功或失败，方法并不会返回读取结果，这一结果存储在 result属性中。</p>
+</code></pre><h2 id="附录-FileReader-API简介"><a href="#附录-FileReader-API简介" class="headerlink" title="附录 FileReader API简介"></a>附录 FileReader API简介</h2><p>###1. FileReader对象的方法</p>
+<p>FileReader 的实例拥有 4 个方法，其中 3 个用以读取文件，另一个用来中断读取。下面的表格列出了这些方法以及他们的参数和功能，需要注意的是 ，无论读取成功或失败，方法并不会返回读取结果，这一结果存储在 result属性中。</p>
 <table>
 <thead>
 <tr>
@@ -141,7 +142,7 @@ fileChange: function(ev) {
 <p><em>readAsText</em>：该方法有两个参数，其中第二个参数是文本的编码方式，默认值为 UTF-8。这个方法非常容易理解，将文件以文本方式读取，读取的结果即是这个文本文件中的内容。</p>
 <p><em>readAsBinaryString</em>：该方法将文件读取为二进制字符串，通常我们将它传送到后端，后端可以通过这段字符串存储文件。</p>
 <p><em>readAsDataURL</em>：这是例子程序中用到的方法，该方法将文件读取为一段以 data: 开头的字符串，这段字符串的实质就是 Data URL，Data URL是一种将小文件直接嵌入文档的方案。这里的小文件通常是指图像与 html 等格式的文件。</p>
-<h6 id="2-FileReader对象的事件"><a href="#2-FileReader对象的事件" class="headerlink" title="2. FileReader对象的事件"></a>2. FileReader对象的事件</h6><p>FileReader 包含了一套完整的事件模型，用于捕获读取文件时的状态，下面这个表格归纳了这些事件。</p>
+<h3 id="2-FileReader对象的事件"><a href="#2-FileReader对象的事件" class="headerlink" title="2. FileReader对象的事件"></a>2. FileReader对象的事件</h3><p>FileReader 包含了一套完整的事件模型，用于捕获读取文件时的状态，下面这个表格归纳了这些事件。</p>
 <table>
 <thead>
 <tr>
