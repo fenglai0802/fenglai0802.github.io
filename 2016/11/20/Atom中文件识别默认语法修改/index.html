@@ -97,7 +97,7 @@
 需求：公司使用自己开发的css预处理器mcss来进行web样式开发，这类文件的后缀为.mcss，在Atom中无法识别，因此每次打开这类文件，都需要ctrl+shift+L选择语言(grammar)版本，通常会选择scss或者less来代替一下。重复度比较大。
 思路：解决这个问题有2个办法：一个就是写个Atom插件，让Atom可以识别mcss语言；另一个就是将就策略，">
 <meta property="og:image" content="https://fenglai0802.github.io/./images/Atom中文件识别默认语法修改/grammar.png">
-<meta property="og:updated_time" content="2016-11-20T06:00:07.000Z">
+<meta property="og:updated_time" content="2016-11-20T06:02:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="grammar更改笔记">
 <meta name="twitter:description" content="Atom中文件识别默认语法修改
@@ -287,15 +287,15 @@
 
       
         <h1 id="Atom中文件识别默认语法修改"><a href="#Atom中文件识别默认语法修改" class="headerlink" title="Atom中文件识别默认语法修改"></a>Atom中文件识别默认语法修改</h1><ul>
-<li><em>需求</em>：公司使用自己开发的css预处理器<code>mcss</code>来进行web样式开发，这类文件的后缀为<code>.mcss</code>，在<code>Atom</code>中无法识别，因此每次打开这类文件，都需要<code>ctrl+shift+L</code>选择语言(grammar)版本，通常会选择<code>scss</code>或者<code>less</code>来代替一下。重复度比较大。</li>
-<li><em>思路</em>：解决这个问题有2个办法：一个就是写个<code>Atom</code>插件，让<code>Atom</code>可以识别mcss语言；另一个就是将就策略，让<code>Atom</code>自动用scss或者less的语法来识别<code>.mcss</code>文件。考虑到办法一短时间无法实现（好吧，其实是因为菜），这里先用方法二处理下，后续有缘再进行插件的开发。</li>
+<li><em>需求</em>：公司使用自己开发的css预处理器mcss来进行web样式开发，这类文件的后缀为.mcss，在Atom中无法识别，因此每次打开这类文件，都需要ctrl+shift+L选择语言(grammar)版本，通常会选择scss或者less来代替一下。重复度比较大。</li>
+<li><em>思路</em>：解决这个问题有2个办法：一个就是写个Atom插件，让Atom可以识别mcss语言；另一个就是将就策略，让Atom自动用scss或者less的语法来识别.mcss文件。考虑到办法一短时间无法实现（好吧，其实是因为菜），这里先用方法二处理下，后续有缘再进行插件的开发。</li>
 </ul>
-<h2 id="Atom语法介绍"><a href="#Atom语法介绍" class="headerlink" title="Atom语法介绍"></a><code>Atom</code>语法介绍</h2><p>加载了一个文件以后，<code>Atom</code>会做一些事情来试图识别出文件的类型。大部分情况下，Atom 会通过文件的扩展名（.md 通常是一个 Markdown 文件，等等）来完成这项工作，但有时只通过扩展名难以判断，它会对文件内容进行一些检查来确定。</p>
-<p>如果加载了一个 Atom 无法判断语法的文件，它会默认为是最简单的纯文本类型（Plain Text）。如果它把文件默认为纯文本，或者弄错了文件类型，再或者由于一些原因你想修改文件的当前作用语法，可以按下 <code>ctrl-shift-L</code> 调出语法选择器。</p>
+<h2 id="Atom语法介绍"><a href="#Atom语法介绍" class="headerlink" title="Atom语法介绍"></a>Atom语法介绍</h2><p>加载了一个文件以后，Atom会做一些事情来试图识别出文件的类型。大部分情况下，Atom 会通过文件的扩展名（.md 通常是一个 Markdown 文件，等等）来完成这项工作，但有时只通过扩展名难以判断，它会对文件内容进行一些检查来确定。</p>
+<p>如果加载了一个 Atom 无法判断语法的文件，它会默认为是最简单的纯文本类型（Plain Text）。如果它把文件默认为纯文本，或者弄错了文件类型，再或者由于一些原因你想修改文件的当前作用语法，可以按下 ctrl-shift-L 调出语法选择器。</p>
 <p><img src="./images/Atom中文件识别默认语法修改/grammar.png" alt=""></p>
-<p>一旦手动修改了一个文件的语法，<code>Atom</code>会记住它，除非你将语法设置回自动检测，或者手动选择一个不同的语法。</p>
+<p>一旦手动修改了一个文件的语法，Atom会记住它，除非你将语法设置回自动检测，或者手动选择一个不同的语法。</p>
 <p>语法选择器的功能在 <a href="https://github.com/atom/grammar-selector" target="_blank" rel="external">atom/grammar-selector</a> 这个 package 里实现。</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>在<code>Atom</code>的配置文件夹目录下有一个<code>init.coffee</code>的文件，用于做<code>Atom</code>初始化设置。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>在Atom的配置文件夹目录下有一个init.coffee的文件，用于做Atom初始化设置。</p>
 <p>在其中添加代码</p>
 <pre><code># add &quot;.mcss&quot; to SCSS grammar:
 for grammar of atom.grammars.grammars
@@ -304,7 +304,7 @@ for grammar of atom.grammars.grammars
 atom.grammars.onDidAddGrammar (grammar) -&gt;
   if grammar.name is &quot;Less&quot;
     grammar.fileTypes.push(&apos;mcss&apos;)
-</code></pre><p>表示在<code>Less</code>的语法中，添加识别文件类型<code>mcss</code>。从而使<code>mcss</code>文件能够被当做<code>Less</code>识别</p>
+</code></pre><p>表示在Less的语法中，添加识别文件类型mcss。从而使mcss文件能够被当做Less识别</p>
 
       
     </div>
