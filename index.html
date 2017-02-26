@@ -232,6 +232,120 @@
             
               
                 
+                <a class="post-title-link" href="/2017/02/10/HTTP:2.0 vs HTTP:1.X/" itemprop="url">
+                  未命名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-02-10T11:30:17+08:00" content="2017-02-10">
+              2017-02-10
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>HTTP/2 与 HTTP/1.X 区别</p>
+<h4 id="1-什么是HTTP-2"><a href="#1-什么是HTTP-2" class="headerlink" title="1. 什么是HTTP/2"></a>1. 什么是HTTP/2</h4><p>超文本传输协议第二版，是自HTTP协议1999年HTTP1.1发布后的首个更新，主要是基于SPDY/2协议（是google开发的基于TCP的应用层协议，它的设计目标是降低 50% 的页面加载时间。用以最小化网络延迟，提升网络速度，优化用户的网络体验）。</p>
+<p>HTTP/2跟SPDY区别：</p>
+<ul>
+<li>HTTP/2支持明文HTTP传输，而SPDY强制使用HTTPS</li>
+<li>HTTP/2消息头的压缩算法采用HPACK，而非SPDY采用的DELEFT</li>
+</ul>
+<h4 id="2-与HTTP-1-X相比，区别有："><a href="#2-与HTTP-1-X相比，区别有：" class="headerlink" title="2. 与HTTP/1.X相比，区别有："></a>2. 与HTTP/1.X相比，区别有：</h4><ol>
+<li><p>HTTP/2采用的是二进制格式传输数据，而非HTTP/1.X文本格式。二进制格式在协议的解析和优化扩展上带来更多的优势和可能。比起文本格式，二进制协议解析更高效，错误更少。</p>
+</li>
+<li><p>HTTP/2是完全多路复用，而非HTTP/1.X有序并阻塞的。<strong>只需要一个连接即可实现并行</strong>，这个很关键，高效。直白的说就是所有请求都是通过一个TCP连接并发完成。HTTP/1.X虽然能利用一个连接完成多次请求，但是多个请求之间有先后顺序的，后面发送的请求必须等待前面的请求返回了才能发送响应。就会导致请求被阻塞，而HTTP/2做到了真正的并发请求。同时，流还支持优先级和流量控制。</p>
+<p> HTTP/1.X 有个问题叫线端阻塞(head-of-line blocking), 它是指一个连接(connection)一次只提交一个请求的效率比较高, 多了就会变慢。 HTTP/1.1 试过用流水线(pipelining)来解决这个问题, 但是效果并不理想(数据量较大或者速度较慢的响应, 会阻碍排在他后面的请求). 此外, 由于网络媒介(intermediary )和服务器不能很好的支持流水线, 导致部署起来困难重重。而多路传输(Multiplexing)能很好的解决这些问题, 因为它能同时处理多个消息的请求和响应; 甚至可以在传输过程中将一个消息跟另外一个掺杂在一起。所以客户端只需要一个连接就能加载一个页面。<br> <img src="./images/HTTP/Multiplexing.png" alt="Multiplexing" title="Multiplexing"></p>
+</li>
+<li><p>HTTP/2 对消息头采用 HPACK 进行压缩传输，能够节省消息头占用的网络的流量，增大有效数据传输量。</p>
+</li>
+<li><p>Server Push：让服务器可以响应主动“推送”到客户端缓存中。例如服务端可以主动把 JS 和 CSS 文件推送给客户端，而不需要客户端解析 HTML 再发送这些请求。当客户端需要的时候，它已经在客户端了。</p>
+</li>
+</ol>
+<h4 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h4><p>本文简化了很多 HTTP/2 协议中的具体细节，只描述了 HTTP/2 中主要特性实现的基本过程。</p>
+<p>如果你想实现一个支持 HTTP/2 的服务器，那么你可以移步 <a href="https://http2.github.io/" target="_blank" rel="external">HTTP/2</a> 官网 做更多了解，它还提供了一份已经实现 HTTP/2 的项目列表： <a href="https://github.com/http2/http2-spec/wiki/Implementations" target="_blank" rel="external">https://github.com/http2/http2-spec/wiki/Implementations</a> 。</p>
+<p>另外，关于 HTTP/2 性能如何，可以参考官方小组给出的例子： <a href="https://http2.akamai.com/demo" target="_blank" rel="external">https://http2.akamai.com/demo</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/11/20/Atom中文件识别默认语法修改/" itemprop="url">
                   grammar更改笔记
                 </a>
@@ -1667,7 +1781,7 @@ o   6.0.0
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-count">9</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1728,7 +1842,7 @@ o   6.0.0
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

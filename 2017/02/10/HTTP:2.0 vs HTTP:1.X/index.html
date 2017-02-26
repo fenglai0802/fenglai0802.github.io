@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="空白字符,编码," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -86,25 +86,30 @@
 
 
 
-<meta name="description" content="前段时间在做搜索的时候，遇到一个关于空格的小问题，总结一下。
-有时在文本值中会插入一些空格字符 （Unicode 字符集值 32 和 160） ，比如说标题之类的。当你对包含空格的值进行排序、 筛选或搜索时，这些字符有时会导致意外的结果。本次就是因为把数据存放在dom节点上，取出来做搜索的时候，发现编码发现了改变（从32变成了160），导致无法正确匹配。
+<meta name="description" content="HTTP/2 与 HTTP/1.X 区别
+1. 什么是HTTP/2超文本传输协议第二版，是自HTTP协议1999年HTTP1.1发布后的首个更新，主要是基于SPDY/2协议（是google开发的基于TCP的应用层协议，它的设计目标是降低 50% 的页面加载时间。用以最小化网络延迟，提升网络速度，优化用户的网络体验）。
+HTTP/2跟SPDY区别：
 
-The non-breaking spa">
+HTTP/2支持明文HTTP传输，而SPDY强制">
 <meta property="og:type" content="article">
-<meta property="og:title" content="不同unicode编码的空格挖的坑">
-<meta property="og:url" content="https://fenglai0802.github.io/2016/08/04/不同unicode编码的空格挖的坑/index.html">
+<meta property="og:title" content="黑月的BLooooog">
+<meta property="og:url" content="https://fenglai0802.github.io/2017/02/10/HTTP:2.0 vs HTTP:1.X/index.html">
 <meta property="og:site_name" content="黑月的BLooooog">
-<meta property="og:description" content="前段时间在做搜索的时候，遇到一个关于空格的小问题，总结一下。
-有时在文本值中会插入一些空格字符 （Unicode 字符集值 32 和 160） ，比如说标题之类的。当你对包含空格的值进行排序、 筛选或搜索时，这些字符有时会导致意外的结果。本次就是因为把数据存放在dom节点上，取出来做搜索的时候，发现编码发现了改变（从32变成了160），导致无法正确匹配。
+<meta property="og:description" content="HTTP/2 与 HTTP/1.X 区别
+1. 什么是HTTP/2超文本传输协议第二版，是自HTTP协议1999年HTTP1.1发布后的首个更新，主要是基于SPDY/2协议（是google开发的基于TCP的应用层协议，它的设计目标是降低 50% 的页面加载时间。用以最小化网络延迟，提升网络速度，优化用户的网络体验）。
+HTTP/2跟SPDY区别：
 
-The non-breaking spa">
-<meta property="og:updated_time" content="2016-08-28T07:35:38.000Z">
+HTTP/2支持明文HTTP传输，而SPDY强制">
+<meta property="og:image" content="https://fenglai0802.github.io/./images/HTTP/Multiplexing.png">
+<meta property="og:updated_time" content="2017-02-26T03:53:19.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="不同unicode编码的空格挖的坑">
-<meta name="twitter:description" content="前段时间在做搜索的时候，遇到一个关于空格的小问题，总结一下。
-有时在文本值中会插入一些空格字符 （Unicode 字符集值 32 和 160） ，比如说标题之类的。当你对包含空格的值进行排序、 筛选或搜索时，这些字符有时会导致意外的结果。本次就是因为把数据存放在dom节点上，取出来做搜索的时候，发现编码发现了改变（从32变成了160），导致无法正确匹配。
+<meta name="twitter:title" content="黑月的BLooooog">
+<meta name="twitter:description" content="HTTP/2 与 HTTP/1.X 区别
+1. 什么是HTTP/2超文本传输协议第二版，是自HTTP协议1999年HTTP1.1发布后的首个更新，主要是基于SPDY/2协议（是google开发的基于TCP的应用层协议，它的设计目标是降低 50% 的页面加载时间。用以最小化网络延迟，提升网络速度，优化用户的网络体验）。
+HTTP/2跟SPDY区别：
 
-The non-breaking spa">
+HTTP/2支持明文HTTP传输，而SPDY强制">
+<meta name="twitter:image" content="https://fenglai0802.github.io/./images/HTTP/Multiplexing.png">
 
 
 
@@ -125,10 +130,10 @@ The non-breaking spa">
 
 
 
-  <link rel="canonical" href="https://fenglai0802.github.io/2016/08/04/不同unicode编码的空格挖的坑/"/>
+  <link rel="canonical" href="https://fenglai0802.github.io/2017/02/10/HTTP:2.0 vs HTTP:1.X/"/>
 
 
-  <title> 不同unicode编码的空格挖的坑 | 黑月的BLooooog </title>
+  <title>  | 黑月的BLooooog </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
@@ -242,7 +247,7 @@ The non-breaking spa">
             
             
               
-                不同unicode编码的空格挖的坑
+                
               
             
           </h1>
@@ -254,30 +259,11 @@ The non-breaking spa">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-04T17:33:14+08:00" content="2016-08-04">
-              2016-08-04
+            <time itemprop="dateCreated" datetime="2017-02-10T11:30:17+08:00" content="2017-02-10">
+              2017-02-10
             </time>
           </span>
 
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/JS/" itemprop="url" rel="index">
-                    <span itemprop="name">JS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
           
 
           
@@ -306,18 +292,27 @@ The non-breaking spa">
       
 
       
-        <p>前段时间在做搜索的时候，遇到一个关于空格的小问题，总结一下。</p>
-<p>有时在文本值中会插入一些空格字符 （Unicode 字符集值 32 和 160） ，比如说标题之类的。当你对包含空格的值进行<strong>排序、 筛选或搜索</strong>时，这些字符有时会导致意外的结果。本次就是因为把数据存放在dom节点上，取出来做搜索的时候，发现编码发现了改变（从32变成了160），导致无法正确匹配。</p>
-<blockquote>
-<p>The non-breaking space (U+00A0 Unicode, 160 decimal, &nbsp;) is not the same as the space character (U+0020 Unicode, 32 decimal). Well, both of them seems to be a “space”, but they are absolutely different characters.</p>
-</blockquote>
-<p>这里的解决方案是：采用正则替换成统一字符，如下</p>
-<pre><code>var s = &apos; &apos; // 假设这里是一个160的空格。
-var reg = new RegExp(String.fromCharCode(160),&quot;gm&quot;);
-var 32sp = String.fromCharCode(32)
-s = s.replace(reg, 32sp);
-</code></pre><p>后来重构代码，直接废除了将数据存在dom上这种方案，就更好了。</p>
-<p>除了空格字符，非打印字符在进行<strong>排序、 筛选或搜索</strong>操作时，也可能会遇到这类问题，<a href="https://support.office.com/zh-cn/article/%E5%88%A0%E9%99%A4%E6%96%87%E6%9C%AC%E4%B8%AD%E7%9A%84%E7%A9%BA%E6%A0%BC%E5%92%8C%E9%9D%9E%E6%89%93%E5%8D%B0%E5%AD%97%E7%AC%A6-023f3a08-3d56-49e4-bf0c-fe5303222c9d" target="_blank" rel="external">参考</a>。要注意~</p>
+        <p>HTTP/2 与 HTTP/1.X 区别</p>
+<h4 id="1-什么是HTTP-2"><a href="#1-什么是HTTP-2" class="headerlink" title="1. 什么是HTTP/2"></a>1. 什么是HTTP/2</h4><p>超文本传输协议第二版，是自HTTP协议1999年HTTP1.1发布后的首个更新，主要是基于SPDY/2协议（是google开发的基于TCP的应用层协议，它的设计目标是降低 50% 的页面加载时间。用以最小化网络延迟，提升网络速度，优化用户的网络体验）。</p>
+<p>HTTP/2跟SPDY区别：</p>
+<ul>
+<li>HTTP/2支持明文HTTP传输，而SPDY强制使用HTTPS</li>
+<li>HTTP/2消息头的压缩算法采用HPACK，而非SPDY采用的DELEFT</li>
+</ul>
+<h4 id="2-与HTTP-1-X相比，区别有："><a href="#2-与HTTP-1-X相比，区别有：" class="headerlink" title="2. 与HTTP/1.X相比，区别有："></a>2. 与HTTP/1.X相比，区别有：</h4><ol>
+<li><p>HTTP/2采用的是二进制格式传输数据，而非HTTP/1.X文本格式。二进制格式在协议的解析和优化扩展上带来更多的优势和可能。比起文本格式，二进制协议解析更高效，错误更少。</p>
+</li>
+<li><p>HTTP/2是完全多路复用，而非HTTP/1.X有序并阻塞的。<strong>只需要一个连接即可实现并行</strong>，这个很关键，高效。直白的说就是所有请求都是通过一个TCP连接并发完成。HTTP/1.X虽然能利用一个连接完成多次请求，但是多个请求之间有先后顺序的，后面发送的请求必须等待前面的请求返回了才能发送响应。就会导致请求被阻塞，而HTTP/2做到了真正的并发请求。同时，流还支持优先级和流量控制。</p>
+<p> HTTP/1.X 有个问题叫线端阻塞(head-of-line blocking), 它是指一个连接(connection)一次只提交一个请求的效率比较高, 多了就会变慢。 HTTP/1.1 试过用流水线(pipelining)来解决这个问题, 但是效果并不理想(数据量较大或者速度较慢的响应, 会阻碍排在他后面的请求). 此外, 由于网络媒介(intermediary )和服务器不能很好的支持流水线, 导致部署起来困难重重。而多路传输(Multiplexing)能很好的解决这些问题, 因为它能同时处理多个消息的请求和响应; 甚至可以在传输过程中将一个消息跟另外一个掺杂在一起。所以客户端只需要一个连接就能加载一个页面。<br> <img src="./images/HTTP/Multiplexing.png" alt="Multiplexing" title="Multiplexing"></p>
+</li>
+<li><p>HTTP/2 对消息头采用 HPACK 进行压缩传输，能够节省消息头占用的网络的流量，增大有效数据传输量。</p>
+</li>
+<li><p>Server Push：让服务器可以响应主动“推送”到客户端缓存中。例如服务端可以主动把 JS 和 CSS 文件推送给客户端，而不需要客户端解析 HTML 再发送这些请求。当客户端需要的时候，它已经在客户端了。</p>
+</li>
+</ol>
+<h4 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h4><p>本文简化了很多 HTTP/2 协议中的具体细节，只描述了 HTTP/2 中主要特性实现的基本过程。</p>
+<p>如果你想实现一个支持 HTTP/2 的服务器，那么你可以移步 <a href="https://http2.github.io/" target="_blank" rel="external">HTTP/2</a> 官网 做更多了解，它还提供了一份已经实现 HTTP/2 的项目列表： <a href="https://github.com/http2/http2-spec/wiki/Implementations" target="_blank" rel="external">https://github.com/http2/http2-spec/wiki/Implementations</a> 。</p>
+<p>另外，关于 HTTP/2 性能如何，可以参考官方小组给出的例子： <a href="https://http2.akamai.com/demo" target="_blank" rel="external">https://http2.akamai.com/demo</a></p>
 
       
     </div>
@@ -338,30 +333,18 @@ s = s.replace(reg, 32sp);
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/空白字符/" rel="tag">#空白字符</a>
-          
-            <a href="/tags/编码/" rel="tag">#编码</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/04/鼠标跟随旋转效果实现/" rel="next" title="鼠标跟随旋转效果实现">
-                <i class="fa fa-chevron-left"></i> 鼠标跟随旋转效果实现
+              <a href="/2016/11/20/Atom中文件识别默认语法修改/" rel="next" title="grammar更改笔记">
+                <i class="fa fa-chevron-left"></i> grammar更改笔记
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/09/14/图解密码技术总结/" rel="prev" title="图解密码技术总结">
-                图解密码技术总结 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -482,7 +465,7 @@ s = s.replace(reg, 32sp);
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-什么是HTTP-2"><span class="nav-number">1.</span> <span class="nav-text">1. 什么是HTTP/2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-与HTTP-1-X相比，区别有："><span class="nav-number">2.</span> <span class="nav-text">2. 与HTTP/1.X相比，区别有：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#结束语"><span class="nav-number">3.</span> <span class="nav-text">结束语</span></a></li></ol></div>
             
           </div>
         </section>
