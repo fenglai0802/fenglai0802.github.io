@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://fenglai0802.github.io/"/>
-  <updated>2017-02-26T03:53:19.000Z</updated>
+  <updated>2017-02-26T04:02:39.000Z</updated>
   <id>https://fenglai0802.github.io/</id>
   
   <author>
@@ -16,13 +16,13 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
-    <link href="https://fenglai0802.github.io/2017/02/10/HTTP:2.0%20vs%20HTTP:1.X/"/>
-    <id>https://fenglai0802.github.io/2017/02/10/HTTP:2.0 vs HTTP:1.X/</id>
-    <published>2017-02-10T03:30:17.000Z</published>
-    <updated>2017-02-26T03:53:19.000Z</updated>
+    <title>HTTP/2 vs HTTP/1.X</title>
+    <link href="https://fenglai0802.github.io/2017/02/26/HTTP/"/>
+    <id>https://fenglai0802.github.io/2017/02/26/HTTP/</id>
+    <published>2017-02-26T04:02:16.000Z</published>
+    <updated>2017-02-26T04:02:39.000Z</updated>
     
-    <content type="html"><![CDATA[<p>HTTP/2 与 HTTP/1.X 区别</p>
+    <content type="html"><![CDATA[<p>HTTP/2 vs HTTP/1.X</p>
 <h4 id="1-什么是HTTP-2"><a href="#1-什么是HTTP-2" class="headerlink" title="1. 什么是HTTP/2"></a>1. 什么是HTTP/2</h4><p>超文本传输协议第二版，是自HTTP协议1999年HTTP1.1发布后的首个更新，主要是基于SPDY/2协议（是google开发的基于TCP的应用层协议，它的设计目标是降低 50% 的页面加载时间。用以最小化网络延迟，提升网络速度，优化用户的网络体验）。</p>
 <p>HTTP/2跟SPDY区别：</p>
 <ul>
@@ -47,8 +47,8 @@
     
     <summary type="html">
     
-      &lt;p&gt;HTTP/2 与 HTTP/1.X 区别&lt;/p&gt;
-&lt;h4 id=&quot;1-什么是HTTP-2&quot;&gt;&lt;a href=&quot;#1-什么是HTTP-2&quot; class=&quot;headerlink&quot; title=&quot;1. 什么是HTTP/2&quot;&gt;&lt;/a&gt;1. 什么是HTTP/2&lt;/h4&gt;&lt;p&gt;超文本传
+      &lt;p&gt;HTTP/2 vs HTTP/1.X&lt;/p&gt;
+&lt;h4 id=&quot;1-什么是HTTP-2&quot;&gt;&lt;a href=&quot;#1-什么是HTTP-2&quot; class=&quot;headerlink&quot; title=&quot;1. 什么是HTTP/2&quot;&gt;&lt;/a&gt;1. 什么是HTTP/2&lt;/h4&gt;&lt;p&gt;超文本传输协
     
     </summary>
     
