@@ -1,0 +1,689 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="函数式编程," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="黑月的BLooooog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="函数式编程函数式编程（通常简称为FP）是指通过符合纯函数来构建软件的过程。它避免了共享状态（share state），易变的数据（mutable data）以及副作用（side-effects）。函数式编程是一种编程范式，一种软件构建的思维方式。
+以下这些名词定义中蕴含了许多思想，只有理解了它们，才能够开始掌握函数式编程真正的意义：
+
+纯函数（Pure functions）
+函数复合（Functi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="函数式编程">
+<meta property="og:url" content="https://fenglai0802.github.io/2017/02/27/函数式编程/index.html">
+<meta property="og:site_name" content="黑月的BLooooog">
+<meta property="og:description" content="函数式编程函数式编程（通常简称为FP）是指通过符合纯函数来构建软件的过程。它避免了共享状态（share state），易变的数据（mutable data）以及副作用（side-effects）。函数式编程是一种编程范式，一种软件构建的思维方式。
+以下这些名词定义中蕴含了许多思想，只有理解了它们，才能够开始掌握函数式编程真正的意义：
+
+纯函数（Pure functions）
+函数复合（Functi">
+<meta property="og:updated_time" content="2017-02-27T12:59:54.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="函数式编程">
+<meta name="twitter:description" content="函数式编程函数式编程（通常简称为FP）是指通过符合纯函数来构建软件的过程。它避免了共享状态（share state），易变的数据（mutable data）以及副作用（side-effects）。函数式编程是一种编程范式，一种软件构建的思维方式。
+以下这些名词定义中蕴含了许多思想，只有理解了它们，才能够开始掌握函数式编程真正的意义：
+
+纯函数（Pure functions）
+函数复合（Functi">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://fenglai0802.github.io/2017/02/27/函数式编程/"/>
+
+
+  <title> 函数式编程 | 黑月的BLooooog </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">黑月的BLooooog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                函数式编程
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-02-27T20:58:02+08:00" content="2017-02-27">
+              2017-02-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JS/" itemprop="url" rel="index">
+                    <span itemprop="name">JS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="函数式编程"><a href="#函数式编程" class="headerlink" title="函数式编程"></a>函数式编程</h3><p><strong>函数式编程</strong>（通常简称为FP）是指通过符合<strong>纯函数</strong>来构建软件的过程。它避免了<strong>共享状态（share state）</strong>，<strong>易变的数据（mutable data）</strong>以及<strong>副作用（side-effects）</strong>。函数式编程是一种编程范式，一种软件构建的思维方式。</p>
+<p>以下这些名词定义中蕴含了许多思想，只有理解了它们，才能够开始掌握函数式编程真正的意义：</p>
+<ul>
+<li>纯函数（Pure functions）</li>
+<li>函数复合（Function composition）</li>
+<li>避免共享状态（Avoid shared state）</li>
+<li>避免改变状态（Avoid mutating state）</li>
+<li>避免副作用（Avoid side effects）</li>
+</ul>
+<h5 id="纯函数"><a href="#纯函数" class="headerlink" title="纯函数"></a>纯函数</h5><ul>
+<li>给它同样的输入，总是返回同样的结果；</li>
+<li>没有副作用；</li>
+</ul>
+<p>纯函数有着许多对函数式编程而言非常重要的属性，包括引用透明（你可以将一个函数调用替换成它的结果值，而不会对程序的运行造成影响。详细：<a href="http://zcfy.cc/article/master-the-javascript-interview-what-is-a-pure-function-2186.html" target="_blank" rel="external">什么是纯函数</a></p>
+<h5 id="函数复合"><a href="#函数复合" class="headerlink" title="函数复合"></a>函数复合</h5><ul>
+<li>函数复合是结合两个或多个函数，从而产生一个新函数或进行某些计算的过程。eg:<code>f(g(x))</code></li>
+</ul>
+<p>详细：<a href="http://zcfy.cc/article/master-the-javascript-interview-what-is-function-composition-2160.html" target="_blank" rel="external">函数复合</a></p>
+<h5 id="共享状态"><a href="#共享状态" class="headerlink" title="共享状态"></a>共享状态</h5><ul>
+<li><strong>共享状态</strong> 的意思是任意变量、对象或者内存空间存在于共享作用域下，或者作为对象的属性在各个作用域之间被传递。共享作用域包括全局作用域和闭包作用域。</li>
+</ul>
+<p>同步竞争和调用时序变更导致的问题都是共享状态常见的bug。</p>
+<ul>
+<li>同步竞争：举个例子，操作A向服务器请求改变B的状态，然后马上用C操作向服务器发送请求，该请求也会改变B的状态，不幸的是C操作有可能早于A返回，这就导致了同步竞争的bug。</li>
+<li>调用时序变更：这个好理解，因为共享状态操作是有时序的，如果颠倒执行顺序就会导致共享状态出现错乱。</li>
+</ul>
+<h5 id="不可变性"><a href="#不可变性" class="headerlink" title="不可变性"></a>不可变性</h5><p>一个<strong>不可变的（immutable）对象</strong>是指一个对象不会在它创建之后被改变。不可变性是函数式编程的一个核心概念，因为没有它，你的程序中的数据流是有损的。</p>
+<p>JavaScript 提供了一个方法，能够<strong>浅冻结</strong>一个对象：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">const a = Object.freeze(&#123;</div><div class="line">  foo: &apos;Hello&apos;,</div><div class="line">  bar: &apos;world&apos;,</div><div class="line">  baz: &apos;!&apos;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">a.foo = &apos;Goodbye&apos;;</div><div class="line">// Error: Cannot assign to read only property &apos;foo&apos; of object Object</div></pre></td></tr></table></figure>
+<p>但是深层仍旧可以被改变。</p>
+<p>在许多函数式编程语言中，有特殊的不可变数据结构，被称为 <strong>trie 数据结构</strong>(trie 的发音为 tree)，这一结构有效地深冻结 —— 意味任何属性无论它的对象层级如何都不能被改变。</p>
+<p>有一些 JavaScript 的库使用了 tries，包括 <a href="https://github.com/facebook/immutable-js" target="_blank" rel="external">Immutable.js</a> 和 <a href="https://github.com/swannodette/mori" target="_blank" rel="external">Mori</a>。</p>
+<p>immutable更多使用实例：<a href="https://medium.com/javascript-scene/10-tips-for-better-redux-architecture-69250425af44" target="_blank" rel="external">10 Tips for Better Redux Architecture</a>。</p>
+<p>ps: 在 JavaScript 中，很重要的一点是不要混淆了 <code>const</code> 和不变性。<code>const</code> 创建一个变量绑定，让该变量不能再次被赋值。<code>const</code> 并不创建不可变对象。你虽然不能改变绑定到这个变量名上的对象，但你仍然可以改变它的属性，这意味着 <code>const</code> 的变量仍然是可变的，而不是不可变的。</p>
+<h5 id="副作用"><a href="#副作用" class="headerlink" title="副作用"></a>副作用</h5><p>副作用是指除了函数返回值以外，任何在函数调用之外观察到的应用程序状态改变。副作用包括：</p>
+<ul>
+<li>改变了任何外部变量或对象属性（例如，全局变量，或者一个在父级函数作用域链上的变量）</li>
+<li>写日志</li>
+<li>在屏幕输出</li>
+<li>写文件</li>
+<li>发网络请求</li>
+<li>触发任何外部进程</li>
+<li>调用另一个有副作用的函数</li>
+</ul>
+<h5 id="使用高阶函数提升重用性"><a href="#使用高阶函数提升重用性" class="headerlink" title="使用高阶函数提升重用性"></a>使用高阶函数提升重用性</h5><p><strong>高阶函数</strong>指的是一个函数以函数为参数，或以函数为返回值，或者既以函数为参数又以函数为返回值。高阶函数经常用于：</p>
+<ul>
+<li>抽象或隔离行为、作用，异步控制流程作为回调函数，promises，<a href="https://en.wikipedia.org/wiki/Monad_%28functional_programming%29" target="_blank" rel="external">monads</a>，等等……</li>
+<li>创建可以泛用于各种数据类型的功能</li>
+<li>部分应用于函数参数（偏函数应用）或创建一个柯里化的函数，用于复用或函数复合。</li>
+<li>接受一个函数列表并返回一些由这个列表中的函数组成的复合函数。</li>
+</ul>
+<p>函数式编程倾向于复用一组通用的函数功能来处理数据。面向对象编程倾向于把方法和数据集中到对象上。那些被集中的方法只能用来操作设计好的数据类型，通常是那些包含在特定对象实例上的数据。</p>
+<p>在函数式编程里，对任何类型的数据一视同仁。同样的 map() 操作可以 map 对象、字符串、数字或任何别的类型，因为它接受一个函数参数，来适当地操作给定类型。函数式编程通过使用高阶函数来实现这一技巧。</p>
+<p>关于高阶函数就不展开了。自行google。</p>
+<h5 id="命令式-vs-声明式"><a href="#命令式-vs-声明式" class="headerlink" title="命令式 vs 声明式"></a>命令式 vs 声明式</h5><p>函数式编程是<strong>声明式</strong>的，而不是<strong>命令式</strong>的，应用程序的状态通过纯函数流转。</p>
+<ul>
+<li>声明式：意思是说程序逻辑不需要通过明确描述控制流程来表达。程序抽象了控制流过程，花费大量代码描述的是数据流：即做什么。</li>
+<li>命令式：程序花费大量代码来描述用来达成期望结果的特定步骤 —— 控制流：即如何做。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">// 命令式</div><div class="line"></div><div class="line">const doubleMap = numbers =&gt; &#123;</div><div class="line">  const doubled = [];</div><div class="line">  for (let i = 0; i &lt; numbers.length; i++) &#123;</div><div class="line">    doubled.push(numbers[i] * 2);</div><div class="line">  &#125;</div><div class="line">  return doubled;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">console.log(doubleMap([2, 3, 4])); // [4, 6, 8]</div><div class="line"></div><div class="line">// 声明式</div><div class="line"></div><div class="line">const doubleMap = numbers =&gt; numbers.map(n =&gt; n * 2);</div><div class="line"></div><div class="line">console.log(doubleMap([2, 3, 4])); // [4, 6, 8]</div><div class="line"></div><div class="line">// 命令式 代码中频繁使用语句。语句是指一小段代码，它用来完成某个行为。</div><div class="line">// 声明式 代码更多依赖表达式。表达式是指一小段代码，它用来计算某个值。</div></pre></td></tr></table></figure>
+<h4 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h4><p>函数式编程偏好：</p>
+<ul>
+<li>使用纯函数而不是使用共享状态和副作用</li>
+<li>让可变数据成为不可变的</li>
+<li>用函数复合替代命令控制流</li>
+<li>使用高阶函数来操作许多数据类型，创建通用、可复用功能取代只是操作集中的数据的方法。</li>
+<li>使用声明式而不是命令式代码（关注做什么，而不是如何做）</li>
+<li>使用表达式替代语句</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/函数式编程/" rel="tag">#函数式编程</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/26/HTTP/" rel="next" title="HTTP/2 vs HTTP/1.X">
+                <i class="fa fa-chevron-left"></i> HTTP/2 vs HTTP/1.X
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/1.jpg"
+               alt="黑月" />
+          <p class="site-author-name" itemprop="name">黑月</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数式编程"><span class="nav-number">1.</span> <span class="nav-text">函数式编程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#纯函数"><span class="nav-number">1.0.1.</span> <span class="nav-text">纯函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#函数复合"><span class="nav-number">1.0.2.</span> <span class="nav-text">函数复合</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#共享状态"><span class="nav-number">1.0.3.</span> <span class="nav-text">共享状态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#不可变性"><span class="nav-number">1.0.4.</span> <span class="nav-text">不可变性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#副作用"><span class="nav-number">1.0.5.</span> <span class="nav-text">副作用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用高阶函数提升重用性"><span class="nav-number">1.0.6.</span> <span class="nav-text">使用高阶函数提升重用性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#命令式-vs-声明式"><span class="nav-number">1.0.7.</span> <span class="nav-text">命令式 vs 声明式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#结论"><span class="nav-number">1.1.</span> <span class="nav-text">结论</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">黑月</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
