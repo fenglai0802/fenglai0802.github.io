@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://fenglai0802.github.io/"/>
-  <updated>2017-02-27T12:59:54.000Z</updated>
+  <updated>2017-02-28T09:21:45.000Z</updated>
   <id>https://fenglai0802.github.io/</id>
   
   <author>
@@ -14,6 +14,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ios和android使用同一个二维码实现跳转下载链接</title>
+    <link href="https://fenglai0802.github.io/2017/02/28/%E6%89%AB%E6%8F%8F%E4%BA%8C%E7%BB%B4%E7%A0%81%E8%B7%B3%E8%BD%AC%E5%88%B0ios%E6%88%96android%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%9C%B0%E5%9D%80/"/>
+    <id>https://fenglai0802.github.io/2017/02/28/扫描二维码跳转到ios或android的下载地址/</id>
+    <published>2017-02-28T08:45:29.000Z</published>
+    <updated>2017-02-28T09:21:45.000Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="需求：扫描一个二维码，根据手机系统跳转到对应的下载页。ios扫描跳转到appstore，android扫描跳转到对应的浏览器或者市场下载。"><a href="#需求：扫描一个二维码，根据手机系统跳转到对应的下载页。ios扫描跳转到appstore，android扫描跳转到对应的浏览器或者市场下载。" class="headerlink" title="需求：扫描一个二维码，根据手机系统跳转到对应的下载页。ios扫描跳转到appstore，android扫描跳转到对应的浏览器或者市场下载。"></a>需求：扫描一个二维码，根据手机系统跳转到对应的下载页。ios扫描跳转到appstore，android扫描跳转到对应的浏览器或者市场下载。</h4><p>注意点：</p>
+<ul>
+<li>如果在微信中扫描二维码，还是需要手动跳转到手机的浏览器才能跳到下载页面，因为微信内的webView比较特别，所以写了一个alert引导用户打开浏览器。</li>
+<li>此处如果要另做他用，需要改三个地址，</li>
+</ul>
+<p>下面直接上代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div></pre></td><td class="code"><pre><div class="line">	</div><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html lang=&quot;en&quot;&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</div><div class="line">    &lt;title&gt;&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line"></div><div class="line">    &lt;script&gt;</div><div class="line"></div><div class="line"></div><div class="line">    var iosUrl = &apos;https://itunes.apple.com/fr/app/wang-yi-dong-jianar-dong-cha/id1142482530?mt=8&apos;;  //AppStore下载地址</div><div class="line">    var anUrl = &apos;http://www.lofter.com/rsc/android/loftcam.apk&apos;;  //android下载地址</div><div class="line">    var defaultUrl = &apos;http://dongjian.163.com/&apos;;  // pc端主页</div><div class="line"></div><div class="line">    jump(iosUrl, anUrl, defaultUrl);</div><div class="line"></div><div class="line">    // 去下载</div><div class="line">    function jump(iosUrl, anUrl, defaultUrl) &#123;</div><div class="line">        var ua = navigator.userAgent, appVer = navigator.appVersion;</div><div class="line">        var isAndroid = ua.indexOf(&apos;Android&apos;) &gt; -1 || ua.indexOf(&apos;Linux&apos;) &gt; -1;</div><div class="line">        var isIOS = !!ua.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);</div><div class="line">        // 是安卓浏览器</div><div class="line">        if (isAndroid) &#123;</div><div class="line">            window.location.href = anUrl; // 跳android端下载地址</div><div class="line">        &#125;</div><div class="line">        // 是iOS浏览器</div><div class="line">        if (isIOS) &#123;</div><div class="line">            window.location.href = iosUrl; // 跳AppStore下载地址</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        // 是微信内部webView</div><div class="line">        if (isWeixn()) &#123;</div><div class="line">            // window.location.href = iosUrl; // 跳AppStore下载地址</div><div class="line">            alert(&quot;请点击右上角按钮, 点击使用浏览器打开&quot;);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        // 是PC端</div><div class="line">        if (isPC()) &#123;</div><div class="line">            window.location.href = defaultUrl;  // 公司主页</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // 是微信浏览器</div><div class="line">    function isWeixn()&#123;</div><div class="line">        var ua = navigator.userAgent.toLowerCase();</div><div class="line">        if(ua.match(/MicroMessenger/i)==&quot;micromessenger&quot;) &#123;</div><div class="line">            return true;</div><div class="line">        &#125; else &#123;</div><div class="line">            return false;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    function isPC() &#123;</div><div class="line">        var uaInfo = navigator.userAgent;</div><div class="line">        var agents = [&quot;Android&quot;, &quot;iPhone&quot;,</div><div class="line">            &quot;SymbianOS&quot;, &quot;Windows Phone&quot;,</div><div class="line">            &quot;iPad&quot;, &quot;iPod&quot;];</div><div class="line">        var flag = true;</div><div class="line">        for (var v = 0; v &lt; agents.length; v++) &#123;</div><div class="line">            if (uaInfo.indexOf(agents[v]) &gt; 0) &#123;</div><div class="line">                flag = false;</div><div class="line">                break;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return flag;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    &lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;需求：扫描一个二维码，根据手机系统跳转到对应的下载页。ios扫描跳转到appstore，android扫描跳转到对应的浏览器或者市场下载。&quot;&gt;&lt;a href=&quot;#需求：扫描一个二维码，根据手机系统跳转到对应的下载页。ios扫描跳转到appstore，android
+    
+    </summary>
+    
+    
+      <category term="二维码" scheme="https://fenglai0802.github.io/tags/%E4%BA%8C%E7%BB%B4%E7%A0%81/"/>
+    
+  </entry>
   
   <entry>
     <title>函数式编程</title>

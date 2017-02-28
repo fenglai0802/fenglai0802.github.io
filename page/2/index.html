@@ -88,7 +88,7 @@
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="黑月的BLooooog">
-<meta property="og:url" content="https://fenglai0802.github.io/tags/github/index.html">
+<meta property="og:url" content="https://fenglai0802.github.io/page/2/index.html">
 <meta property="og:site_name" content="黑月的BLooooog">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="黑月的BLooooog">
@@ -112,10 +112,10 @@
 
 
 
-  <link rel="canonical" href="https://fenglai0802.github.io/tags/github/"/>
+  <link rel="canonical" href="https://fenglai0802.github.io/page/2/"/>
 
 
-  <title> 标签: github | 黑月的BLooooog </title>
+  <title> 黑月的BLooooog </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
@@ -136,7 +136,9 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left 
+   page-home 
+ ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
@@ -207,47 +209,160 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        github
-        <small>标签</small>
-      </h2>
-    </div>
-
+  <section id="posts" class="posts-expand">
     
       
 
-  <article class="post post-type-normal" itemscope itemtype="//schema.org/Article">
-    <header class="post-header">
+  
+  
 
-      <h1 class="post-title">
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2016/08/03/Hexo-GitHub-Pages-构建博客/" itemprop="url">
-              
-                <span itemprop="name">Hexo + GitHub Pages 构建博客</span>
-              
-            </a>
         
-      </h1>
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/08/03/利用模块n管理node版本/" itemprop="url">
+                  利用模块n管理node版本
+                </a>
+              
+            
+          </h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-08-03T12:54:27+08:00"
-              content="2016-08-03" >
-          08-03
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-03T10:44:47+08:00" content="2016-08-03">
+              2016-08-03
+            </time>
+          </span>
 
-    </header>
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/常规/" itemprop="url" rel="index">
+                    <span itemprop="name">常规</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="利用模块n管理node版本"><a href="#利用模块n管理node版本" class="headerlink" title="利用模块n管理node版本"></a>利用模块n管理node版本</h3><ul>
+<li>由于node的版本迭代速度非常快，所以版本多样，所以升级版本或者切换版本都比较麻烦。本文介绍一下模块n的好处。</li>
+</ul>
+<h5 id="n"><a href="#n" class="headerlink" title="n"></a>n</h5><ul>
+<li><p>n是node的一个模块，作者是TJ Holowaychuk（鼎鼎大名的Express框架作者），就像它的名字一样，它的理念就是简单：</p>
+<blockquote>
+<p>no subshells, no profile setup, no convoluted api, just simple</p>
+</blockquote>
+</li>
+<li><p>安装n</p>
+<pre><code>$ sudo npm install -g n
+</code></pre></li>
+<li><p>安装完成之后，直接输入n后控制台就会输出当前已安装的node版本以及正在使用的版本（前面有个o的），通过上下方向键来选择想要使用的版本，回车生效。</p>
+<pre><code>$ n
+    0.10.1
+o   6.0.0
+</code></pre></li>
+<li><p>安装指定版本node</p>
+<pre><code>$ n 6.0.0
+</code></pre></li>
+<li><p>安装最新版本node</p>
+<pre><code>$ n latest
+</code></pre></li>
+<li><p>安装稳定版本node</p>
+<pre><code>$ n stable
+</code></pre></li>
+<li><p>删除某个版本</p>
+<pre><code>$ n rm 0.10.1
+</code></pre></li>
+<li><p>以指定的版本来执行脚本</p>
+<pre><code>$ n use 0.10.21 some.js
+</code></pre></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
   </article>
 
 
     
-  </div>
+  </section>
 
   
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
 
 
           </div>
