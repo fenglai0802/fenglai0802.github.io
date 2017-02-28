@@ -100,7 +100,7 @@
 
 纯函数（Pure functions）
 函数复合（Functi">
-<meta property="og:updated_time" content="2017-02-27T12:59:54.000Z">
+<meta property="og:updated_time" content="2017-02-28T09:27:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="函数式编程">
 <meta name="twitter:description" content="函数式编程函数式编程（通常简称为FP）是指通过符合纯函数来构建软件的过程。它避免了共享状态（share state），易变的数据（mutable data）以及副作用（side-effects）。函数式编程是一种编程范式，一种软件构建的思维方式。
@@ -318,16 +318,16 @@
 <li>避免改变状态（Avoid mutating state）</li>
 <li>避免副作用（Avoid side effects）</li>
 </ul>
-<h5 id="纯函数"><a href="#纯函数" class="headerlink" title="纯函数"></a>纯函数</h5><ul>
+<h4 id="1-纯函数"><a href="#1-纯函数" class="headerlink" title="1.纯函数"></a>1.纯函数</h4><ul>
 <li>给它同样的输入，总是返回同样的结果；</li>
 <li>没有副作用；</li>
 </ul>
 <p>纯函数有着许多对函数式编程而言非常重要的属性，包括引用透明（你可以将一个函数调用替换成它的结果值，而不会对程序的运行造成影响。详细：<a href="http://zcfy.cc/article/master-the-javascript-interview-what-is-a-pure-function-2186.html" target="_blank" rel="external">什么是纯函数</a></p>
-<h5 id="函数复合"><a href="#函数复合" class="headerlink" title="函数复合"></a>函数复合</h5><ul>
+<h4 id="2-函数复合"><a href="#2-函数复合" class="headerlink" title="2.函数复合"></a>2.函数复合</h4><ul>
 <li>函数复合是结合两个或多个函数，从而产生一个新函数或进行某些计算的过程。eg:<code>f(g(x))</code></li>
 </ul>
 <p>详细：<a href="http://zcfy.cc/article/master-the-javascript-interview-what-is-function-composition-2160.html" target="_blank" rel="external">函数复合</a></p>
-<h5 id="共享状态"><a href="#共享状态" class="headerlink" title="共享状态"></a>共享状态</h5><ul>
+<h4 id="3-共享状态"><a href="#3-共享状态" class="headerlink" title="3.共享状态"></a>3.共享状态</h4><ul>
 <li><strong>共享状态</strong> 的意思是任意变量、对象或者内存空间存在于共享作用域下，或者作为对象的属性在各个作用域之间被传递。共享作用域包括全局作用域和闭包作用域。</li>
 </ul>
 <p>同步竞争和调用时序变更导致的问题都是共享状态常见的bug。</p>
@@ -335,15 +335,15 @@
 <li>同步竞争：举个例子，操作A向服务器请求改变B的状态，然后马上用C操作向服务器发送请求，该请求也会改变B的状态，不幸的是C操作有可能早于A返回，这就导致了同步竞争的bug。</li>
 <li>调用时序变更：这个好理解，因为共享状态操作是有时序的，如果颠倒执行顺序就会导致共享状态出现错乱。</li>
 </ul>
-<h5 id="不可变性"><a href="#不可变性" class="headerlink" title="不可变性"></a>不可变性</h5><p>一个<strong>不可变的（immutable）对象</strong>是指一个对象不会在它创建之后被改变。不可变性是函数式编程的一个核心概念，因为没有它，你的程序中的数据流是有损的。</p>
+<h4 id="4-不可变性"><a href="#4-不可变性" class="headerlink" title="4.不可变性"></a>4.不可变性</h4><p>一个<strong>不可变的（immutable）对象</strong>是指一个对象不会在它创建之后被改变。不可变性是函数式编程的一个核心概念，因为没有它，你的程序中的数据流是有损的。</p>
 <p>JavaScript 提供了一个方法，能够<strong>浅冻结</strong>一个对象：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">const a = Object.freeze(&#123;</div><div class="line">  foo: &apos;Hello&apos;,</div><div class="line">  bar: &apos;world&apos;,</div><div class="line">  baz: &apos;!&apos;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">a.foo = &apos;Goodbye&apos;;</div><div class="line">// Error: Cannot assign to read only property &apos;foo&apos; of object Object</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">const</span> a = <span class="built_in">Object</span>.freeze(&#123;</div><div class="line">  foo: <span class="string">'Hello'</span>,</div><div class="line">  bar: <span class="string">'world'</span>,</div><div class="line">  baz: <span class="string">'!'</span></div><div class="line">&#125;);</div><div class="line"></div><div class="line">a.foo = <span class="string">'Goodbye'</span>;</div><div class="line"><span class="comment">// Error: Cannot assign to read only property 'foo' of object Object</span></div></pre></td></tr></table></figure>
 <p>但是深层仍旧可以被改变。</p>
 <p>在许多函数式编程语言中，有特殊的不可变数据结构，被称为 <strong>trie 数据结构</strong>(trie 的发音为 tree)，这一结构有效地深冻结 —— 意味任何属性无论它的对象层级如何都不能被改变。</p>
 <p>有一些 JavaScript 的库使用了 tries，包括 <a href="https://github.com/facebook/immutable-js" target="_blank" rel="external">Immutable.js</a> 和 <a href="https://github.com/swannodette/mori" target="_blank" rel="external">Mori</a>。</p>
 <p>immutable更多使用实例：<a href="https://medium.com/javascript-scene/10-tips-for-better-redux-architecture-69250425af44" target="_blank" rel="external">10 Tips for Better Redux Architecture</a>。</p>
 <p>ps: 在 JavaScript 中，很重要的一点是不要混淆了 <code>const</code> 和不变性。<code>const</code> 创建一个变量绑定，让该变量不能再次被赋值。<code>const</code> 并不创建不可变对象。你虽然不能改变绑定到这个变量名上的对象，但你仍然可以改变它的属性，这意味着 <code>const</code> 的变量仍然是可变的，而不是不可变的。</p>
-<h5 id="副作用"><a href="#副作用" class="headerlink" title="副作用"></a>副作用</h5><p>副作用是指除了函数返回值以外，任何在函数调用之外观察到的应用程序状态改变。副作用包括：</p>
+<h4 id="5-副作用"><a href="#5-副作用" class="headerlink" title="5.副作用"></a>5.副作用</h4><p>副作用是指除了函数返回值以外，任何在函数调用之外观察到的应用程序状态改变。副作用包括：</p>
 <ul>
 <li>改变了任何外部变量或对象属性（例如，全局变量，或者一个在父级函数作用域链上的变量）</li>
 <li>写日志</li>
@@ -353,7 +353,7 @@
 <li>触发任何外部进程</li>
 <li>调用另一个有副作用的函数</li>
 </ul>
-<h5 id="使用高阶函数提升重用性"><a href="#使用高阶函数提升重用性" class="headerlink" title="使用高阶函数提升重用性"></a>使用高阶函数提升重用性</h5><p><strong>高阶函数</strong>指的是一个函数以函数为参数，或以函数为返回值，或者既以函数为参数又以函数为返回值。高阶函数经常用于：</p>
+<h4 id="6-使用高阶函数提升重用性"><a href="#6-使用高阶函数提升重用性" class="headerlink" title="6.使用高阶函数提升重用性"></a>6.使用高阶函数提升重用性</h4><p><strong>高阶函数</strong>指的是一个函数以函数为参数，或以函数为返回值，或者既以函数为参数又以函数为返回值。高阶函数经常用于：</p>
 <ul>
 <li>抽象或隔离行为、作用，异步控制流程作为回调函数，promises，<a href="https://en.wikipedia.org/wiki/Monad_%28functional_programming%29" target="_blank" rel="external">monads</a>，等等……</li>
 <li>创建可以泛用于各种数据类型的功能</li>
@@ -363,13 +363,13 @@
 <p>函数式编程倾向于复用一组通用的函数功能来处理数据。面向对象编程倾向于把方法和数据集中到对象上。那些被集中的方法只能用来操作设计好的数据类型，通常是那些包含在特定对象实例上的数据。</p>
 <p>在函数式编程里，对任何类型的数据一视同仁。同样的 map() 操作可以 map 对象、字符串、数字或任何别的类型，因为它接受一个函数参数，来适当地操作给定类型。函数式编程通过使用高阶函数来实现这一技巧。</p>
 <p>关于高阶函数就不展开了。自行google。</p>
-<h5 id="命令式-vs-声明式"><a href="#命令式-vs-声明式" class="headerlink" title="命令式 vs 声明式"></a>命令式 vs 声明式</h5><p>函数式编程是<strong>声明式</strong>的，而不是<strong>命令式</strong>的，应用程序的状态通过纯函数流转。</p>
+<h4 id="7-命令式-vs-声明式"><a href="#7-命令式-vs-声明式" class="headerlink" title="7.命令式 vs 声明式"></a>7.命令式 vs 声明式</h4><p>函数式编程是<strong>声明式</strong>的，而不是<strong>命令式</strong>的，应用程序的状态通过纯函数流转。</p>
 <ul>
 <li>声明式：意思是说程序逻辑不需要通过明确描述控制流程来表达。程序抽象了控制流过程，花费大量代码描述的是数据流：即做什么。</li>
 <li>命令式：程序花费大量代码来描述用来达成期望结果的特定步骤 —— 控制流：即如何做。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">// 命令式</div><div class="line"></div><div class="line">const doubleMap = numbers =&gt; &#123;</div><div class="line">  const doubled = [];</div><div class="line">  for (let i = 0; i &lt; numbers.length; i++) &#123;</div><div class="line">    doubled.push(numbers[i] * 2);</div><div class="line">  &#125;</div><div class="line">  return doubled;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">console.log(doubleMap([2, 3, 4])); // [4, 6, 8]</div><div class="line"></div><div class="line">// 声明式</div><div class="line"></div><div class="line">const doubleMap = numbers =&gt; numbers.map(n =&gt; n * 2);</div><div class="line"></div><div class="line">console.log(doubleMap([2, 3, 4])); // [4, 6, 8]</div><div class="line"></div><div class="line">// 命令式 代码中频繁使用语句。语句是指一小段代码，它用来完成某个行为。</div><div class="line">// 声明式 代码更多依赖表达式。表达式是指一小段代码，它用来计算某个值。</div></pre></td></tr></table></figure>
-<h4 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h4><p>函数式编程偏好：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">// 命令式</span></div><div class="line"></div><div class="line"><span class="keyword">const</span> doubleMap = numbers =&gt; &#123;</div><div class="line">  <span class="keyword">const</span> doubled = [];</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; numbers.length; i++) &#123;</div><div class="line">    doubled.push(numbers[i] * <span class="number">2</span>);</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> doubled;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(doubleMap([<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])); <span class="comment">// [4, 6, 8]</span></div><div class="line"></div><div class="line"><span class="comment">// 声明式</span></div><div class="line"></div><div class="line"><span class="keyword">const</span> doubleMap = numbers =&gt; numbers.map(n =&gt; n * <span class="number">2</span>);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(doubleMap([<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])); <span class="comment">// [4, 6, 8]</span></div><div class="line"></div><div class="line"><span class="comment">// 命令式 代码中频繁使用语句。语句是指一小段代码，它用来完成某个行为。</span></div><div class="line"><span class="comment">// 声明式 代码更多依赖表达式。表达式是指一小段代码，它用来计算某个值。</span></div></pre></td></tr></table></figure>
+<h4 id="8-结论"><a href="#8-结论" class="headerlink" title="8.结论"></a>8.结论</h4><p>函数式编程偏好：</p>
 <ul>
 <li>使用纯函数而不是使用共享状态和副作用</li>
 <li>让可变数据成为不可变的</li>
@@ -540,7 +540,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数式编程"><span class="nav-number">1.</span> <span class="nav-text">函数式编程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#纯函数"><span class="nav-number">1.0.1.</span> <span class="nav-text">纯函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#函数复合"><span class="nav-number">1.0.2.</span> <span class="nav-text">函数复合</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#共享状态"><span class="nav-number">1.0.3.</span> <span class="nav-text">共享状态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#不可变性"><span class="nav-number">1.0.4.</span> <span class="nav-text">不可变性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#副作用"><span class="nav-number">1.0.5.</span> <span class="nav-text">副作用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用高阶函数提升重用性"><span class="nav-number">1.0.6.</span> <span class="nav-text">使用高阶函数提升重用性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#命令式-vs-声明式"><span class="nav-number">1.0.7.</span> <span class="nav-text">命令式 vs 声明式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#结论"><span class="nav-number">1.1.</span> <span class="nav-text">结论</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数式编程"><span class="nav-number">1.</span> <span class="nav-text">函数式编程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-纯函数"><span class="nav-number">1.1.</span> <span class="nav-text">1.纯函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-函数复合"><span class="nav-number">1.2.</span> <span class="nav-text">2.函数复合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-共享状态"><span class="nav-number">1.3.</span> <span class="nav-text">3.共享状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-不可变性"><span class="nav-number">1.4.</span> <span class="nav-text">4.不可变性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-副作用"><span class="nav-number">1.5.</span> <span class="nav-text">5.副作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-使用高阶函数提升重用性"><span class="nav-number">1.6.</span> <span class="nav-text">6.使用高阶函数提升重用性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-命令式-vs-声明式"><span class="nav-number">1.7.</span> <span class="nav-text">7.命令式 vs 声明式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-结论"><span class="nav-number">1.8.</span> <span class="nav-text">8.结论</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
