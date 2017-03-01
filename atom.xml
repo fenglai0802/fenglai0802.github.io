@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://fenglai0802.github.io/"/>
-  <updated>2017-02-28T12:47:28.000Z</updated>
+  <updated>2017-03-01T11:37:41.000Z</updated>
   <id>https://fenglai0802.github.io/</id>
   
   <author>
@@ -14,6 +14,162 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Web Audo API advance</title>
+    <link href="https://fenglai0802.github.io/2017/03/01/Web-Audo-API-advance/"/>
+    <id>https://fenglai0802.github.io/2017/03/01/Web-Audo-API-advance/</id>
+    <published>2017-03-01T11:36:03.000Z</published>
+    <updated>2017-03-01T11:37:41.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Web-Audio-API-Advance"><a href="#Web-Audio-API-Advance" class="headerlink" title="Web Audio API Advance"></a>Web Audio API Advance</h2><p>一个简单的、典型的web audio工作流是这样的：</p>
+<ol>
+<li>创建音频环境对象（AudioContext）。</li>
+<li>在音频环境对象AudioContext中，创建音源。例如<code>&lt;audio&gt;</code>，振荡器（oscillator），源。</li>
+<li>创建效果节点（effectNode），例如分析、增益、混响、双二阶滤波器、平移、压缩等。</li>
+<li>选择最终的音源目的地，例如你的系统扬声器。</li>
+<li>连接源到效果节点，以及效果节点到输出终端。</li>
+</ol>
+<p><img src="./images/web_audio_api/1.png" alt=""></p>
+<p>简单来说，<code>Web Audio API</code>提供了一个简单强大的机制来实现控制web应用程序的音频内容，但是<code>Web Audio API</code>并不会取代<code>&lt;audio&gt;</code>，而可以把它看做是<code>&lt;audio&gt;</code>的补充，就好像<code>&lt;img&gt;</code>和<code>&lt;canvas&gt;</code>的共存关系。你用来实现音频的方式取决于你的需求的复杂程度，如果只是简单的音轨播放，那么<code>&lt;audio&gt;</code>足够了。</p>
+<p>这里首先来明确两个概念。</p>
+<h3 id="1-AudioContext-–-音频环境对象"><a href="#1-AudioContext-–-音频环境对象" class="headerlink" title="1. AudioContext – 音频环境对象"></a>1. AudioContext – 音频环境对象</h3><p>W3C描述如下:</p>
+<blockquote>
+<p>This interface represents a set of AudioNode objects and their connections. It allows for arbitrary routing of signals to the AudioDestinationNode (what the user ultimately hears). Nodes are created from the context and are then connected together. In most use cases, only a single AudioContext is used per document.</p>
+</blockquote>
+<p>大致意思是这个接口是音频节点和节点之间连接关系的集合。他允许信号经过任意的路由连接到目的节点（音频播放设备节点）上。节点都是通过音频环境（AudioContext）创建的，然后连接在一起。在大多数情况下，一个文档只需要一个音频环境。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">// 1.创建音频环境对象AudioContext；</span></div><div class="line"><span class="keyword">var</span> audioCtx = <span class="keyword">new</span> AudioContext();</div><div class="line"></div><div class="line"><span class="comment">// 2.创建音源节点</span></div><div class="line"><span class="keyword">var</span> sourceNode = audioCtx.createBufferSource();</div><div class="line"></div><div class="line"><span class="comment">// 3.创建效果节点</span></div><div class="line"><span class="comment">// 创建分析节点</span></div><div class="line"><span class="keyword">var</span> analyser = audioCtx.createAnalyser();</div><div class="line"><span class="comment">// 创建低阶滤波节点</span></div><div class="line"><span class="keyword">var</span> biquadFilter = audioCtx.createBiquadFilter();</div><div class="line"><span class="comment">// 创建增益节点</span></div><div class="line"><span class="keyword">var</span> gainNode = audioCtx.createGain();</div></pre></td></tr></table></figure>
+<p>可以看出AudioContext相当于一个容器，各类音频节点，及节点间的连接方式都需要AudioContext的实例对象来创建。</p>
+<h3 id="2-AudioNode-–-音频节点"><a href="#2-AudioNode-–-音频节点" class="headerlink" title="2. AudioNode – 音频节点"></a>2. AudioNode – 音频节点</h3><p>W3C中描述如下:</p>
+<blockquote>
+<p>AudioNodes are the building blocks of an AudioContext. This interface represents audio sources, the audio destination, and intermediate processing modules.</p>
+</blockquote>
+<p>音频节点是一个音频环境的基础模块。这些节点可以是音频源节点，音频播放设备节点，也可以是中间处理模块。</p>
+<h3 id="3-Demo构建流程"><a href="#3-Demo构建流程" class="headerlink" title="3. Demo构建流程"></a>3. Demo构建流程</h3><p>先来看一个简单的音频模型，音频直接连接到播放设备节点播放。</p>
+<p><img src="./images/web_audio_api/2.png" alt=""></p>
+<p>再来看一套专业的音效合成处理图：</p>
+<p><img src="./images/web_audio_api/3.png" alt=""></p>
+<p>是不是很厉害，好，那么接下来我们讲点简单的……</p>
+<h4 id="3-1-构建AudioContext对象"><a href="#3-1-构建AudioContext对象" class="headerlink" title="3.1 构建AudioContext对象"></a>3.1 构建AudioContext对象</h4><p>首先，需要构建一个AudioContext实例，来创建一个音频环境容器。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1. 一个文档可以存在多个实例，但是没有必要，通常只需要一个。</span></div><div class="line"><span class="comment">// 2. 对于webkit/blink内核的浏览器需要加webkit前缀。</span></div><div class="line"><span class="comment">// 3. 在Safari浏览器中，如果不加window对象，会无效。</span></div><div class="line"><span class="comment">// 所以构建音频环境对象如下：</span></div><div class="line"><span class="keyword">var</span> audioCtx = <span class="keyword">new</span> (<span class="built_in">window</span>.AudioContext || <span class="built_in">window</span>.webkitAudioContext)();</div></pre></td></tr></table></figure>
+<h4 id="3-2-创建音源AudioSource"><a href="#3-2-创建音源AudioSource" class="headerlink" title="3.2 创建音源AudioSource"></a>3.2 创建音源AudioSource</h4><p>现在有了环境的实例对象，前面也提到这个对象非常有用，接下来就是用这个实例整一个音源。音源可以用以下几种方式创建/获取：</p>
+<ul>
+<li>从PCM（Pulse Code Modulation，脉冲编码调制）数据构建：这个PCM数据是啥玩意，怎么来？简单的说：首先可以通过XMLHttpRequest获取被支持的音频格式的文件（比如x.mp3），然后利用AudioContext对象中的方法对文件进行解码后获得的数据。下文中提到的自产<a href="https://fenglai0802.github.io/demo/web_audio_api/simple.html">demo</a> ，就是利用这种方式获取音源的。AudioContext提供了解密被支持的音频格式的多种方法： <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/AudioContext/createBuffer" target="_blank" rel="external">AudioContext.createBuffer()</a>, <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/AudioContext/createBufferSource" target="_blank" rel="external">AudioContext.createBufferSource()</a>, 以及 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/AudioContext/decodeAudioData" target="_blank" rel="external">AudioContext.decodeAudioData()</a>.</li>
+<li>利用AudioContext对象直接生产音频节点，比如振荡器oscillator。具体API：<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/AudioContext/createOscillator" target="_blank" rel="external">AudioContext.createOscillator() </a></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> oscillator = audioCtx.createOscillator();</div></pre></td></tr></table></figure>
+<ul>
+<li>来自HTML音频元素，如我们熟悉的<code>&lt;video&gt;</code>或者<code>&lt;audio&gt;</code>.具体API: <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/AudioContext/createMediaElementSource" target="_blank" rel="external"> AudioContext.createMediaElementSource()</a></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> source = audioCtx.createMediaElementSource(myMediaElement);</div></pre></td></tr></table></figure>
+<ul>
+<li>直接来自于WebRTC，MediaStream。如摄像头、麦克风。具体API: <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/AudioContext/createMediaStreamSource" target="_blank" rel="external">AudioContext.createMediaStreamSource()</a>。这种方式可以看下MDN提供的<a href="https://mdn.github.io/voice-change-o-matic/" target="_blank" rel="external">Demo：the Voice-change-O-matic live</a>及<a href="https://github.com/mdn/voice-change-o-matic" target="_blank" rel="external">Demo源码</a></li>
+</ul>
+<h4 id="3-3-连接输入输出"><a href="#3-3-连接输入输出" class="headerlink" title="3.3 连接输入输出"></a>3.3 连接输入输出</h4><p>接下来需要创建改变音效的节点，并将这些节点连接起来，最终通过默认输出设备（通常是是设备扬声器）实质输出声音。<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/AudioContext/destination" target="_blank" rel="external">AudioContext.destination</a>就是最后需要连接的输出设备节点。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 以振荡器为例</span></div><div class="line"><span class="keyword">var</span> oscillator = audioCtx.createOscillator();</div><div class="line"><span class="keyword">var</span> gainNode = audioCtx.createGain();</div><div class="line"></div><div class="line">oscillator.connect(gainNode);</div><div class="line">gainNode.connect(audioCtx.destination);</div></pre></td></tr></table></figure>
+<p>当然还有很多增益相关的节点，比如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">var</span> analyser = audioCtx.createAnalyser();  <span class="comment">//该节点可以从音频里提取时间、频率或者其它数据。</span></div><div class="line"><span class="keyword">var</span> distortion = audioCtx.createWaveShaper(); <span class="comment">//接口表示一个非线性的扭曲常被用来添加温暖的感觉。</span></div><div class="line"><span class="keyword">var</span> gainNode = audioCtx.createGain(); <span class="comment">//接口表示音量变更</span></div><div class="line"><span class="keyword">var</span> biquadFilter = audioCtx.createBiquadFilter(); <span class="comment">//表示一个简单的低阶滤波器</span></div><div class="line"><span class="keyword">var</span> convolver = audioCtx.createConvolver(); <span class="comment">//对给定的 AudioBuffer 执行线性卷积，通常用于实现混响效果。</span></div><div class="line"></div><div class="line">source = audioCtx.createMediaStreamSource(stream);</div><div class="line">source.connect(analyser);</div><div class="line">analyser.connect(distortion);</div><div class="line">distortion.connect(biquadFilter);</div><div class="line">biquadFilter.connect(convolver);</div><div class="line">convolver.connect(gainNode);</div><div class="line">gainNode.connect(audioCtx.destination);</div></pre></td></tr></table></figure>
+<p>如果你一股脑添加了如上的节点，就会得到下面的音频节点图。这些节点都可以做对应的设置，来达到复杂的音频调节效果，这里就不做展开了，因为我也展不开……</p>
+<p><img src="./images/web_audio_api/4.png" alt="音频图"></p>
+<h4 id="3-4-设置音调、声音大小并播放"><a href="#3-4-设置音调、声音大小并播放" class="headerlink" title="3.4 设置音调、声音大小并播放"></a>3.4 设置音调、声音大小并播放</h4><p>终于到最后了，下面简单的做个设置就开始放吧：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">oscillator.type = <span class="string">'sine'</span>; <span class="comment">// sine 表示正弦波形 — 其他的波形值可以是 'square', 'sawtooth', 'triangle' and 'custom'</span></div><div class="line">oscillator.frequency.value = <span class="number">2500</span>; <span class="comment">// 单位是赫兹</span></div><div class="line">gainNode.gain.value = <span class="number">2</span>; <span class="comment">// 默认值是1</span></div><div class="line">oscillator.start(); <span class="comment">// 开始播放</span></div></pre></td></tr></table></figure>
+<p>具体接口请参考<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Audio_API" target="_blank" rel="external">Web_Audio_API</a></p>
+<h5 id="3-5-自产demo"><a href="#3-5-自产demo" class="headerlink" title="3.5 自产demo"></a>3.5 自产demo</h5><p>下面就上一个简单的demo，过程是利用XHR获取一个mp3文件，然后调节音量之后播放。</p>
+<p><a href="https://fenglai0802.github.io/demo/web_audio_api/simple.html">demo</a></p>
+<p><a href="https://github.com/fenglai0802/fenglai0802.github.io/tree/master/demo/web_audio_api" target="_blank" rel="external">源码</a></p>
+<p> PS:</p>
+<ul>
+<li><a href="https://github.com/ScottMichaud/AudioSampleLoader/blob/master/AudioSampleLoader.js" target="_blank" rel="external">AudioSampleLoader</a>这个库可以帮你简化XHR/buffer的操作。</li>
+</ul>
+<ul>
+<li>Web Audio API的具体资料可以参考：<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Audio_API" target="_blank" rel="external">Web_Audio_API</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Web-Audio-API-Advance&quot;&gt;&lt;a href=&quot;#Web-Audio-API-Advance&quot; class=&quot;headerlink&quot; title=&quot;Web Audio API Advance&quot;&gt;&lt;/a&gt;Web Audio API Advance&lt;/
+    
+    </summary>
+    
+    
+      <category term="web audio api" scheme="https://fenglai0802.github.io/tags/web-audio-api/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Web Audio API history</title>
+    <link href="https://fenglai0802.github.io/2017/03/01/Web-Audio-API-history/"/>
+    <id>https://fenglai0802.github.io/2017/03/01/Web-Audio-API-history/</id>
+    <published>2017-03-01T11:33:19.000Z</published>
+    <updated>2017-03-01T11:34:18.000Z</updated>
+    
+    <content type="html"><![CDATA[<ol>
+<li><p><code>&lt;bgsound&gt;</code>:</p>
+<p> 早在1996年，IE3.0定义了<bgsound>标签，这应该是web最早的一个能播放音频的标签，但是它没有成为标准，始终只有IE支持。提供的功能比较有限，就是自动播放，支持.wav|.mid|.ua格式音频。<br> 当时最早的个人blog中用来播放背景音乐的代码就是用<code>&lt;bgsound&gt;</code>实现的。</bgsound></p>
+</li>
+<li><p><code>&lt;embed&gt;</code></p>
+<p> OK，这个时候当时的浏览器厂商大哥NetScape坐不住了，没多久就退出了类似的功能标签<code>&lt;embed&gt;</code>。<br> 其相对于<code>&lt;bgsound&gt;</code>的特色：</p>
+<ul>
+<li>添加了一点交互，可以暂停/播放(可选)。</li>
+<li><p>不仅仅支持音频格式文件，还支持当时比较高端的VRML Live3D的图形动画。</p>
+<p>大哥发话，很快小弟safari，opare，firefox就纷纷跟进支持<code>&lt;embed&gt;</code>。</p>
+</li>
+</ul>
+</li>
+<li><p><code>&lt;object&gt;</code></p>
+<p> 1994年W3C成立。1997年，随着HTML4的到来，W3C引入了 <code>&lt;object&gt;</code>标签，包括了图片、音频、视频等格式文件。可以说是第一款跨浏览器的音频播放标签。但是这个标签也有自己的弊端，例如标签臃肿，依赖插件，SEO困难等。</p>
+</li>
+<li><p><code>&lt;audio&gt;</code></p>
+<p> 2008年，第一份正式的HTML5草案发布，引入了新的富媒体元素<code>&lt;video&gt;</code>， <code>&lt;audio&gt;</code>，<code>&lt;canvas&gt;</code>，这些标签的引入最大目的还是为了减少web富媒体应用对插件的依赖。从标签名就能区分功能，这点也非常有利于搜索引擎去索引资源。相比<code>&lt;object&gt;</code>，其有一下特点：</p>
+<ul>
+<li>标签语义化，结构简单；</li>
+<li>脱离插件；</li>
+<li><p>简单的js内置方法以及事件交互。</p>
+<p>同样，也有缺陷：</p>
+</li>
+<li><p>缺少对音频数据的访问权限，在需要更动感的交互和更复杂的音效需求面前就显得力不从心。</p>
+</li>
+</ul>
+</li>
+<li><p><code>[Audio Data API]</code></p>
+<p> 为了满足更复杂的需求，Mozilla社区又开始搞事，提出了<a href="https://wiki.mozilla.org/Audio_Data_API" target="_blank" rel="external">Audio Data API</a>，对<code>&lt;audio&gt;</code>标签进行了js能力方面的扩展，这套API主要是以提供读取写入音频数据接口为主。不过到现在基本已经废弃了，因为很多音频的专业效果处理需要涉及大量波形相关处理算法，对于普通开发者来说，成本太高，这也是为什么最后W3C推荐WEB AUDIO API了。</p>
+</li>
+<li><p><code>[Web Audio API]</code></p>
+<p> 这套API最早是由Chrome社区提供并支持的，这是一套全新的相对独立的接口系统。对音频文件拥有更高的处理权限以及<strong>内置相关的音频专业效果处理</strong>（这一点很关键），可以完全独立于<code>&lt;audio&gt;</code>标签而存在。<br> Web Audio API的特点：</p>
+<ol>
+<li>更精确的时间控制；</li>
+<li>可以完全独立<code>&lt;audio&gt;</code>，允许更多音频文件同事播放，用于游戏或者复杂音频应用场景；</li>
+<li>模块化路由链接方式，让音频操作更加灵活形象；</li>
+<li>实时的频域，时域数据访问/操作；</li>
+<li><p>更多专业的音频处理方法</p>
+<ol>
+<li>音道分离/合并；</li>
+<li>音频延时效果；</li>
+<li>内置频率滤波器；</li>
+<li>音频空间感效果以及多普勒效应模拟；</li>
+<li>音频卷积运算（用于声场环境模拟）；</li>
+<li>自定义波形生成器；</li>
+<li>波形非线性失真处理。</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;&amp;lt;bgsound&amp;gt;&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt; 早在1996年，IE3.0定义了&lt;bgsound&gt;标签，这应该是web最早的一个能播放音频的标签，但是它没有成为标准，始终只有IE支持。提供的功能比较有限，就是自动播放，支持.wa
+    
+    </summary>
+    
+    
+      <category term="web audio api" scheme="https://fenglai0802.github.io/tags/web-audio-api/"/>
+    
+  </entry>
   
   <entry>
     <title>ios和android使用同一个二维码实现跳转下载链接</title>
