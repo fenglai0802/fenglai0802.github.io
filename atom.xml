@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://fenglai0802.github.io/"/>
-  <updated>2017-03-01T11:37:41.000Z</updated>
+  <updated>2017-03-01T11:56:51.000Z</updated>
   <id>https://fenglai0802.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://fenglai0802.github.io/2017/03/01/Web-Audo-API-advance/"/>
     <id>https://fenglai0802.github.io/2017/03/01/Web-Audo-API-advance/</id>
     <published>2017-03-01T11:36:03.000Z</published>
-    <updated>2017-03-01T11:37:41.000Z</updated>
+    <updated>2017-03-01T11:56:51.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="Web-Audio-API-Advance"><a href="#Web-Audio-API-Advance" class="headerlink" title="Web Audio API Advance"></a>Web Audio API Advance</h2><p>一个简单的、典型的web audio工作流是这样的：</p>
 <ol>
@@ -74,9 +74,8 @@
 <h4 id="3-4-设置音调、声音大小并播放"><a href="#3-4-设置音调、声音大小并播放" class="headerlink" title="3.4 设置音调、声音大小并播放"></a>3.4 设置音调、声音大小并播放</h4><p>终于到最后了，下面简单的做个设置就开始放吧：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">oscillator.type = <span class="string">'sine'</span>; <span class="comment">// sine 表示正弦波形 — 其他的波形值可以是 'square', 'sawtooth', 'triangle' and 'custom'</span></div><div class="line">oscillator.frequency.value = <span class="number">2500</span>; <span class="comment">// 单位是赫兹</span></div><div class="line">gainNode.gain.value = <span class="number">2</span>; <span class="comment">// 默认值是1</span></div><div class="line">oscillator.start(); <span class="comment">// 开始播放</span></div></pre></td></tr></table></figure>
 <p>具体接口请参考<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Audio_API" target="_blank" rel="external">Web_Audio_API</a></p>
-<h5 id="3-5-自产demo"><a href="#3-5-自产demo" class="headerlink" title="3.5 自产demo"></a>3.5 自产demo</h5><p>下面就上一个简单的demo，过程是利用XHR获取一个mp3文件，然后调节音量之后播放。</p>
-<p><a href="https://fenglai0802.github.io/demo/web_audio_api/simple.html">demo</a></p>
-<p><a href="https://github.com/fenglai0802/fenglai0802.github.io/tree/master/demo/web_audio_api" target="_blank" rel="external">源码</a></p>
+<h5 id="3-5-自产demo"><a href="#3-5-自产demo" class="headerlink" title="3.5 自产demo"></a>3.5 自产demo</h5><p>下面就上一个简单的demo，过程是利用XHR获取一个mp3文件，解码后播放，加了调节音量的按钮。</p>
+<p><a href="https://github.com/fenglai0802/demo-list/tree/master/web_audio_api" target="_blank" rel="external">demo</a></p>
 <p> PS:</p>
 <ul>
 <li><a href="https://github.com/ScottMichaud/AudioSampleLoader/blob/master/AudioSampleLoader.js" target="_blank" rel="external">AudioSampleLoader</a>这个库可以帮你简化XHR/buffer的操作。</li>
