@@ -100,8 +100,8 @@ HTTP/2支持明文HTTP传输，而SPDY强制使用">
 HTTP/2跟SPDY区别：
 
 HTTP/2支持明文HTTP传输，而SPDY强制使用">
-<meta property="og:image" content="https://fenglai0802.github.io/./images/HTTP/Multiplexing.png">
-<meta property="og:updated_time" content="2017-02-26T04:02:39.000Z">
+<meta property="og:image" content="https://fenglai0802.github.io/images/HTTP/Multiplexing.png">
+<meta property="og:updated_time" content="2017-03-10T09:07:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTTP/2 vs HTTP/1.X">
 <meta name="twitter:description" content="HTTP/2 vs HTTP/1.X
@@ -109,7 +109,7 @@ HTTP/2支持明文HTTP传输，而SPDY强制使用">
 HTTP/2跟SPDY区别：
 
 HTTP/2支持明文HTTP传输，而SPDY强制使用">
-<meta name="twitter:image" content="https://fenglai0802.github.io/./images/HTTP/Multiplexing.png">
+<meta name="twitter:image" content="https://fenglai0802.github.io/images/HTTP/Multiplexing.png">
 
 
 
@@ -303,7 +303,7 @@ HTTP/2支持明文HTTP传输，而SPDY强制使用">
 <li><p>HTTP/2采用的是二进制格式传输数据，而非HTTP/1.X文本格式。二进制格式在协议的解析和优化扩展上带来更多的优势和可能。比起文本格式，二进制协议解析更高效，错误更少。</p>
 </li>
 <li><p>HTTP/2是完全多路复用，而非HTTP/1.X有序并阻塞的。<strong>只需要一个连接即可实现并行</strong>，这个很关键，高效。直白的说就是所有请求都是通过一个TCP连接并发完成。HTTP/1.X虽然能利用一个连接完成多次请求，但是多个请求之间有先后顺序的，后面发送的请求必须等待前面的请求返回了才能发送响应。就会导致请求被阻塞，而HTTP/2做到了真正的并发请求。同时，流还支持优先级和流量控制。</p>
-<p> HTTP/1.X 有个问题叫线端阻塞(head-of-line blocking), 它是指一个连接(connection)一次只提交一个请求的效率比较高, 多了就会变慢。 HTTP/1.1 试过用流水线(pipelining)来解决这个问题, 但是效果并不理想(数据量较大或者速度较慢的响应, 会阻碍排在他后面的请求). 此外, 由于网络媒介(intermediary )和服务器不能很好的支持流水线, 导致部署起来困难重重。而多路传输(Multiplexing)能很好的解决这些问题, 因为它能同时处理多个消息的请求和响应; 甚至可以在传输过程中将一个消息跟另外一个掺杂在一起。所以客户端只需要一个连接就能加载一个页面。<br> <img src="./images/HTTP/Multiplexing.png" alt="Multiplexing" title="Multiplexing"></p>
+<p> HTTP/1.X 有个问题叫线端阻塞(head-of-line blocking), 它是指一个连接(connection)一次只提交一个请求的效率比较高, 多了就会变慢。 HTTP/1.1 试过用流水线(pipelining)来解决这个问题, 但是效果并不理想(数据量较大或者速度较慢的响应, 会阻碍排在他后面的请求). 此外, 由于网络媒介(intermediary )和服务器不能很好的支持流水线, 导致部署起来困难重重。而多路传输(Multiplexing)能很好的解决这些问题, 因为它能同时处理多个消息的请求和响应; 甚至可以在传输过程中将一个消息跟另外一个掺杂在一起。所以客户端只需要一个连接就能加载一个页面。<br> <img src="/images/HTTP/Multiplexing.png" alt="Multiplexing" title="Multiplexing"></p>
 </li>
 <li><p>HTTP/2 对消息头采用 HPACK 进行压缩传输，能够节省消息头占用的网络的流量，增大有效数据传输量。</p>
 </li>

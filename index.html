@@ -284,7 +284,7 @@
 <li>选择最终的音源目的地，例如你的系统扬声器。</li>
 <li>连接源到效果节点，以及效果节点到输出终端。</li>
 </ol>
-<p><img src="./images/web_audio_api/1.png" alt=""></p>
+<p><img src="/images/web_audio_api/1.png" alt=""></p>
 <p>简单来说，<code>Web Audio API</code>提供了一个简单强大的机制来实现控制web应用程序的音频内容，但是<code>Web Audio API</code>并不会取代<code>&lt;audio&gt;</code>，而可以把它看做是<code>&lt;audio&gt;</code>的补充，就好像<code>&lt;img&gt;</code>和<code>&lt;canvas&gt;</code>的共存关系。你用来实现音频的方式取决于你的需求的复杂程度，如果只是简单的音轨播放，那么<code>&lt;audio&gt;</code>足够了。</p>
 <p>这里首先来明确两个概念。</p>
 <h3 id="1-AudioContext-–-音频环境对象"><a href="#1-AudioContext-–-音频环境对象" class="headerlink" title="1. AudioContext – 音频环境对象"></a>1. AudioContext – 音频环境对象</h3><p>W3C描述如下:</p>
@@ -300,9 +300,9 @@
 </blockquote>
 <p>音频节点是一个音频环境的基础模块。这些节点可以是音频源节点，音频播放设备节点，也可以是中间处理模块。</p>
 <h3 id="3-Demo构建流程"><a href="#3-Demo构建流程" class="headerlink" title="3. Demo构建流程"></a>3. Demo构建流程</h3><p>先来看一个简单的音频模型，音频直接连接到播放设备节点播放。</p>
-<p><img src="./images/web_audio_api/2.png" alt=""></p>
+<p><img src="/images/web_audio_api/2.png" alt=""></p>
 <p>再来看一套专业的音效合成处理图：</p>
-<p><img src="./images/web_audio_api/3.png" alt=""></p>
+<p><img src="/images/web_audio_api/3.png" alt=""></p>
 <p>是不是很厉害，好，那么接下来我们讲点简单的……</p>
 <h4 id="3-1-构建AudioContext对象"><a href="#3-1-构建AudioContext对象" class="headerlink" title="3.1 构建AudioContext对象"></a>3.1 构建AudioContext对象</h4><p>首先，需要构建一个AudioContext实例，来创建一个音频环境容器。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1. 一个文档可以存在多个实例，但是没有必要，通常只需要一个。</span></div><div class="line"><span class="comment">// 2. 对于webkit/blink内核的浏览器需要加webkit前缀。</span></div><div class="line"><span class="comment">// 3. 在Safari浏览器中，如果不加window对象，会无效。</span></div><div class="line"><span class="comment">// 所以构建音频环境对象如下：</span></div><div class="line"><span class="keyword">var</span> audioCtx = <span class="keyword">new</span> (<span class="built_in">window</span>.AudioContext || <span class="built_in">window</span>.webkitAudioContext)();</div></pre></td></tr></table></figure>
@@ -324,7 +324,7 @@
 <p>当然还有很多增益相关的节点，比如：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">var</span> analyser = audioCtx.createAnalyser();  <span class="comment">//该节点可以从音频里提取时间、频率或者其它数据。</span></div><div class="line"><span class="keyword">var</span> distortion = audioCtx.createWaveShaper(); <span class="comment">//接口表示一个非线性的扭曲常被用来添加温暖的感觉。</span></div><div class="line"><span class="keyword">var</span> gainNode = audioCtx.createGain(); <span class="comment">//接口表示音量变更</span></div><div class="line"><span class="keyword">var</span> biquadFilter = audioCtx.createBiquadFilter(); <span class="comment">//表示一个简单的低阶滤波器</span></div><div class="line"><span class="keyword">var</span> convolver = audioCtx.createConvolver(); <span class="comment">//对给定的 AudioBuffer 执行线性卷积，通常用于实现混响效果。</span></div><div class="line"></div><div class="line">source = audioCtx.createMediaStreamSource(stream);</div><div class="line">source.connect(analyser);</div><div class="line">analyser.connect(distortion);</div><div class="line">distortion.connect(biquadFilter);</div><div class="line">biquadFilter.connect(convolver);</div><div class="line">convolver.connect(gainNode);</div><div class="line">gainNode.connect(audioCtx.destination);</div></pre></td></tr></table></figure>
 <p>如果你一股脑添加了如上的节点，就会得到下面的音频节点图。这些节点都可以做对应的设置，来达到复杂的音频调节效果，这里就不做展开了，因为我也展不开……</p>
-<p><img src="./images/web_audio_api/4.png" alt="音频图"></p>
+<p><img src="/images/web_audio_api/4.png" alt="音频图"></p>
 <h4 id="3-4-设置音调、声音大小并播放"><a href="#3-4-设置音调、声音大小并播放" class="headerlink" title="3.4 设置音调、声音大小并播放"></a>3.4 设置音调、声音大小并播放</h4><p>终于到最后了，下面简单的做个设置就开始放吧：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">oscillator.type = <span class="string">'sine'</span>; <span class="comment">// sine 表示正弦波形 — 其他的波形值可以是 'square', 'sawtooth', 'triangle' and 'custom'</span></div><div class="line">oscillator.frequency.value = <span class="number">2500</span>; <span class="comment">// 单位是赫兹</span></div><div class="line">gainNode.gain.value = <span class="number">2</span>; <span class="comment">// 默认值是1</span></div><div class="line">oscillator.start(); <span class="comment">// 开始播放</span></div></pre></td></tr></table></figure>
 <p>具体接口请参考<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Audio_API" target="_blank" rel="external">Web_Audio_API</a></p>
@@ -581,7 +581,8 @@
 <li>如果要copy使用，改一下的url就好。</li>
 </ul>
 <p>下面直接上代码：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div></pre></td><td class="code"><pre><div class="line">	</div><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"txt"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"></div><div class="line"></div><div class="line">    <span class="keyword">var</span> iosUrl = <span class="string">'https://itunes.apple.com/fr/app/wang-yi-dong-jianar-dong-cha/id1142482530?mt=8'</span>;  <span class="comment">//AppStore下载地址</span></div><div class="line">    <span class="keyword">var</span> anUrl = <span class="string">'http://www.lofter.com/rsc/android/loftcam.apk'</span>;  <span class="comment">//android下载地址</span></div><div class="line">    <span class="keyword">var</span> defaultUrl = <span class="string">'http://dongjian.163.com/'</span>;  <span class="comment">// pc端主页</span></div><div class="line"></div><div class="line">    jump(iosUrl, anUrl, defaultUrl);</div><div class="line"></div><div class="line">    <span class="comment">// 去下载</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">jump</span>(<span class="params">iosUrl, anUrl, defaultUrl</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> ua = navigator.userAgent, appVer = navigator.appVersion;</div><div class="line">        <span class="keyword">var</span> isAndroid = ua.indexOf(<span class="string">'Android'</span>) &gt; <span class="number">-1</span> || ua.indexOf(<span class="string">'Linux'</span>) &gt; <span class="number">-1</span>;</div><div class="line">        <span class="keyword">var</span> isIOS = !!ua.match(<span class="regexp">/\(i[^;]+;( U;)? CPU.+Mac OS X/</span>);</div><div class="line">        <span class="comment">// 是安卓浏览器</span></div><div class="line">        <span class="keyword">if</span> (isAndroid) &#123;</div><div class="line">            <span class="built_in">window</span>.location.href = anUrl; <span class="comment">// 跳android端下载地址</span></div><div class="line">        &#125;</div><div class="line">        <span class="comment">// 是iOS浏览器</span></div><div class="line">        <span class="keyword">if</span> (isIOS) &#123;</div><div class="line">            <span class="built_in">window</span>.location.href = iosUrl; <span class="comment">// 跳AppStore下载地址</span></div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">// 是微信内部webView</span></div><div class="line">        <span class="keyword">if</span> (isWeixn()) &#123;</div><div class="line">            <span class="comment">// window.location.href = iosUrl; // 跳AppStore下载地址</span></div><div class="line">            <span class="keyword">var</span> txtNode = <span class="built_in">document</span>.createTextNode(<span class="string">'请点击右上角按钮, 点击使用浏览器打开'</span>);</div><div class="line">            <span class="built_in">document</span>.querySelector(<span class="string">'#txt'</span>).appendChild(txtNode);</div><div class="line">            alert(<span class="string">"请点击右上角按钮, 点击使用浏览器打开"</span>);</div><div class="line"></div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">// 是PC端</span></div><div class="line">        <span class="keyword">if</span> (isPC()) &#123;</div><div class="line">            <span class="built_in">window</span>.location.href = defaultUrl;  <span class="comment">// 公司主页</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 是微信浏览器</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">isWeixn</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">var</span> ua = navigator.userAgent.toLowerCase();</div><div class="line">        <span class="keyword">if</span>(ua.match(<span class="regexp">/MicroMessenger/i</span>)==<span class="string">"micromessenger"</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">isPC</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> uaInfo = navigator.userAgent;</div><div class="line">        <span class="keyword">var</span> agents = [<span class="string">"Android"</span>, <span class="string">"iPhone"</span>,</div><div class="line">            <span class="string">"SymbianOS"</span>, <span class="string">"Windows Phone"</span>,</div><div class="line">            <span class="string">"iPad"</span>, <span class="string">"iPod"</span>];</div><div class="line">        <span class="keyword">var</span> flag = <span class="literal">true</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> v = <span class="number">0</span>; v &lt; agents.length; v++) &#123;</div><div class="line">            <span class="keyword">if</span> (uaInfo.indexOf(agents[v]) &gt; <span class="number">0</span>) &#123;</div><div class="line">                flag = <span class="literal">false</span>;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> flag;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"txt"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"></div><div class="line"></div><div class="line">    <span class="keyword">var</span> iosUrl = <span class="string">'https://itunes.apple.com/fr/app/wang-yi-dong-jianar-dong-cha/id1142482530?mt=8'</span>;  <span class="comment">//AppStore下载地址</span></div><div class="line">    <span class="keyword">var</span> anUrl = <span class="string">'http://www.lofter.com/rsc/android/loftcam.apk'</span>;  <span class="comment">//android下载地址</span></div><div class="line">    <span class="keyword">var</span> defaultUrl = <span class="string">'http://dongjian.163.com/'</span>;  <span class="comment">// pc端主页</span></div><div class="line"></div><div class="line">    jump(iosUrl, anUrl, defaultUrl);</div><div class="line"></div><div class="line">    <span class="comment">// 去下载</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">jump</span>(<span class="params">iosUrl, anUrl, defaultUrl</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> ua = navigator.userAgent, appVer = navigator.appVersion;</div><div class="line">        <span class="keyword">var</span> isAndroid = ua.indexOf(<span class="string">'Android'</span>) &gt; <span class="number">-1</span> || ua.indexOf(<span class="string">'Linux'</span>) &gt; <span class="number">-1</span>;</div><div class="line">        <span class="keyword">var</span> isIOS = !!ua.match(<span class="regexp">/\(i[^;]+;( U;)? CPU.+Mac OS X/</span>);</div><div class="line">        <span class="comment">// 是安卓浏览器</span></div><div class="line">        <span class="keyword">if</span> (isAndroid) &#123;</div><div class="line">            <span class="built_in">window</span>.location.href = anUrl; <span class="comment">// 跳android端下载地址</span></div><div class="line">        &#125;</div><div class="line">        <span class="comment">// 是iOS浏览器</span></div><div class="line">        <span class="keyword">if</span> (isIOS) &#123;</div><div class="line">            <span class="built_in">window</span>.location.href = iosUrl; <span class="comment">// 跳AppStore下载地址</span></div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">// 是微信内部webView</span></div><div class="line">        <span class="keyword">if</span> (isWeixn()) &#123;</div><div class="line">            <span class="comment">// window.location.href = iosUrl; // 跳AppStore下载地址</span></div><div class="line">            <span class="keyword">var</span> txtNode = <span class="built_in">document</span>.createTextNode(<span class="string">'请点击右上角按钮, 点击使用浏览器打开'</span>);</div><div class="line">            <span class="built_in">document</span>.querySelector(<span class="string">'#txt'</span>).appendChild(txtNode);</div><div class="line">            alert(<span class="string">"请点击右上角按钮, 点击使用浏览器打开"</span>);</div><div class="line"></div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">// 是PC端</span></div><div class="line">        <span class="keyword">if</span> (isPC()) &#123;</div><div class="line">            <span class="built_in">window</span>.location.href = defaultUrl;  <span class="comment">// 公司主页</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 是微信浏览器</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">isWeixn</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">var</span> ua = navigator.userAgent.toLowerCase();</div><div class="line">        <span class="keyword">if</span>(ua.match(<span class="regexp">/MicroMessenger/i</span>)==<span class="string">"micromessenger"</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">isPC</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> uaInfo = navigator.userAgent;</div><div class="line">        <span class="keyword">var</span> agents = [<span class="string">"Android"</span>, <span class="string">"iPhone"</span>,</div><div class="line">            <span class="string">"SymbianOS"</span>, <span class="string">"Windows Phone"</span>,</div><div class="line">            <span class="string">"iPad"</span>, <span class="string">"iPod"</span>];</div><div class="line">        <span class="keyword">var</span> flag = <span class="literal">true</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> v = <span class="number">0</span>; v &lt; agents.length; v++) &#123;</div><div class="line">            <span class="keyword">if</span> (uaInfo.indexOf(agents[v]) &gt; <span class="number">0</span>) &#123;</div><div class="line">                flag = <span class="literal">false</span>;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> flag;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+
           
         
       
@@ -866,7 +867,7 @@
 <li><p>HTTP/2采用的是二进制格式传输数据，而非HTTP/1.X文本格式。二进制格式在协议的解析和优化扩展上带来更多的优势和可能。比起文本格式，二进制协议解析更高效，错误更少。</p>
 </li>
 <li><p>HTTP/2是完全多路复用，而非HTTP/1.X有序并阻塞的。<strong>只需要一个连接即可实现并行</strong>，这个很关键，高效。直白的说就是所有请求都是通过一个TCP连接并发完成。HTTP/1.X虽然能利用一个连接完成多次请求，但是多个请求之间有先后顺序的，后面发送的请求必须等待前面的请求返回了才能发送响应。就会导致请求被阻塞，而HTTP/2做到了真正的并发请求。同时，流还支持优先级和流量控制。</p>
-<p> HTTP/1.X 有个问题叫线端阻塞(head-of-line blocking), 它是指一个连接(connection)一次只提交一个请求的效率比较高, 多了就会变慢。 HTTP/1.1 试过用流水线(pipelining)来解决这个问题, 但是效果并不理想(数据量较大或者速度较慢的响应, 会阻碍排在他后面的请求). 此外, 由于网络媒介(intermediary )和服务器不能很好的支持流水线, 导致部署起来困难重重。而多路传输(Multiplexing)能很好的解决这些问题, 因为它能同时处理多个消息的请求和响应; 甚至可以在传输过程中将一个消息跟另外一个掺杂在一起。所以客户端只需要一个连接就能加载一个页面。<br> <img src="./images/HTTP/Multiplexing.png" alt="Multiplexing" title="Multiplexing"></p>
+<p> HTTP/1.X 有个问题叫线端阻塞(head-of-line blocking), 它是指一个连接(connection)一次只提交一个请求的效率比较高, 多了就会变慢。 HTTP/1.1 试过用流水线(pipelining)来解决这个问题, 但是效果并不理想(数据量较大或者速度较慢的响应, 会阻碍排在他后面的请求). 此外, 由于网络媒介(intermediary )和服务器不能很好的支持流水线, 导致部署起来困难重重。而多路传输(Multiplexing)能很好的解决这些问题, 因为它能同时处理多个消息的请求和响应; 甚至可以在传输过程中将一个消息跟另外一个掺杂在一起。所以客户端只需要一个连接就能加载一个页面。<br> <img src="/images/HTTP/Multiplexing.png" alt="Multiplexing" title="Multiplexing"></p>
 </li>
 <li><p>HTTP/2 对消息头采用 HPACK 进行压缩传输，能够节省消息头占用的网络的流量，增大有效数据传输量。</p>
 </li>
@@ -975,7 +976,7 @@
 </ul>
 <h2 id="Atom语法介绍"><a href="#Atom语法介绍" class="headerlink" title="Atom语法介绍"></a>Atom语法介绍</h2><p>加载了一个文件以后，Atom会做一些事情来试图识别出文件的类型。大部分情况下，Atom 会通过文件的扩展名（.md 通常是一个 Markdown 文件，等等）来完成这项工作，但有时只通过扩展名难以判断，它会对文件内容进行一些检查来确定。</p>
 <p>如果加载了一个 Atom 无法判断语法的文件，它会默认为是最简单的纯文本类型（Plain Text）。如果它把文件默认为纯文本，或者弄错了文件类型，再或者由于一些原因你想修改文件的当前作用语法，可以按下 ctrl-shift-L 调出语法选择器。</p>
-<p><img src="./images/Atom中文件识别默认语法修改/grammar.png" alt=""></p>
+<p><img src="/images/Atom中文件识别默认语法修改/grammar.png" alt=""></p>
 <p>一旦手动修改了一个文件的语法，Atom会记住它，除非你将语法设置回自动检测，或者手动选择一个不同的语法。</p>
 <p>语法选择器的功能在 <a href="https://github.com/atom/grammar-selector" target="_blank" rel="external">atom/grammar-selector</a> 这个 package 里实现。</p>
 <h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>在Atom的配置文件夹目录下有一个init.coffee的文件，用于做Atom初始化设置。</p>
@@ -1303,7 +1304,7 @@ reader.onload = function() {
 <pre><code>$ git sub module add https://git.hz.netease.com/git/NEV/NEV.git src/webapp/res/nev
 </code></pre><p>操作成功之后会生成一个.submodules的文件，其中记录了每个submodule的引用信息，知道在当前项目的位置以及仓库的所在。</p>
 <h4 id="2-查看子模块-git-submodule"><a href="#2-查看子模块-git-submodule" class="headerlink" title="2.查看子模块 $ git submodule"></a>2.查看子模块 <code>$ git submodule</code></h4><p>如图</p>
-<p><img src="./images/git子模块/1.png" alt=""></p>
+<p><img src="/images/git子模块/1.png" alt=""></p>
 <p>ps: 如果子模块前面有一个-，说明子模块文件还未检入（空文件夹）</p>
 <h4 id="3-初始化子模块：-git-submodule-init-—-在首次检出仓库时运行一次"><a href="#3-初始化子模块：-git-submodule-init-—-在首次检出仓库时运行一次" class="headerlink" title="3.初始化子模块： $ git submodule init — 在首次检出仓库时运行一次"></a>3.初始化子模块： <code>$ git submodule init</code> — 在首次检出仓库时运行一次</h4><h4 id="4-更新子模块：-git-submodule-update"><a href="#4-更新子模块：-git-submodule-update" class="headerlink" title="4. 更新子模块：$ git submodule update"></a>4. 更新子模块：<code>$ git submodule update</code></h4><p>这个命令才是最常用的，每次子模块更新或者切换分支了，就执行一次。</p>
 <h4 id="5-删除子模块："><a href="#5-删除子模块：" class="headerlink" title="5. 删除子模块："></a>5. 删除子模块：</h4><ul>
@@ -1427,11 +1428,11 @@ reader.onload = function() {
             <h1 id="《图解密码技术》总结"><a href="#《图解密码技术》总结" class="headerlink" title="《图解密码技术》总结"></a>《图解密码技术》总结</h1><h3 id="一-历史上的密码"><a href="#一-历史上的密码" class="headerlink" title="一. 历史上的密码"></a>一. 历史上的密码</h3><h5 id="1-1-凯撒密码："><a href="#1-1-凯撒密码：" class="headerlink" title="1.1. 凯撒密码："></a>1.1. <strong>凯撒密码</strong>：</h5><ul>
 <li>将明文按照字母表进行一定的“平移”来进行加密的加密算法。</li>
 </ul>
-<p><img src="./images/图解密码技术总结/1.1.png" alt=""></p>
+<p><img src="/images/图解密码技术总结/1.1.png" alt=""></p>
 <h5 id="1-2-简单替换密码："><a href="#1-2-简单替换密码：" class="headerlink" title="1.2. 简单替换密码："></a>1.2. <strong>简单替换密码</strong>：</h5><ul>
 <li>两套字母表进行乱序一一对应，那么无论哪种对应关系都可以作为密码来使用。这种将明文中用到的字母表替换成另一套字母表的密码就是简单替换密码（simple substitution cipher）。如下图。</li>
 </ul>
-<p><img src="./images/图解密码技术总结/1.2.png" alt=""></p>
+<p><img src="/images/图解密码技术总结/1.2.png" alt=""></p>
 <h5 id="1-3-Enigma："><a href="#1-3-Enigma：" class="headerlink" title="1.3. Enigma："></a>1.3. <strong>Enigma</strong>：</h5><ul>
 <li>相信很多人看过由卷福饰演图灵的电影《模仿游戏》，那么对于二战时期大名鼎鼎的德国密码机Enigma一定不陌生了。</li>
 <li>Enigma在德语中的意思就是“谜”。</li>
@@ -1439,9 +1440,9 @@ reader.onload = function() {
 <li>Enigma是一种由键盘、齿轮、电池和灯泡组成的机器。通过一台机器可以完成加密解密两种操作。</li>
 <li>其实<strong>Enigma相当于一个密码算法</strong>， 它并不依赖于<strong>隐蔽式安全性</strong>（security by obscurity）—隐蔽式安全性：顾名思义就是依靠算法的隐蔽性来获得安全保障，一旦算法被曝光就会被破解。而Enigma密码机就算被密码破译者得到，只要不知道Enigma的设置（相当于密钥），就无法破译密码。</li>
 </ul>
-<h6 id="1-3-1-下图为Enigma进行加密通信的过程图。"><a href="#1-3-1-下图为Enigma进行加密通信的过程图。" class="headerlink" title="1.3.1 下图为Enigma进行加密通信的过程图。"></a>1.3.1 下图为Enigma进行加密通信的过程图。</h6><p><img src="./images/图解密码技术总结/1.3.png" alt=""></p>
+<h6 id="1-3-1-下图为Enigma进行加密通信的过程图。"><a href="#1-3-1-下图为Enigma进行加密通信的过程图。" class="headerlink" title="1.3.1 下图为Enigma进行加密通信的过程图。"></a>1.3.1 下图为Enigma进行加密通信的过程图。</h6><p><img src="/images/图解密码技术总结/1.3.png" alt=""></p>
 <h6 id="1-3-2-Enigma加密"><a href="#1-3-2-Enigma加密" class="headerlink" title="1.3.2 Enigma加密"></a>1.3.2 Enigma加密</h6><p>下图为Enigma进行加密nacht的过程图。</p>
-<p><img src="./images/图解密码技术总结/1.4.png" alt=""></p>
+<p><img src="/images/图解密码技术总结/1.4.png" alt=""></p>
 <p>在进行通信之前，发送者和接受者都需要持有国防军密码本，这里面记载了发送者和接受者需要使用的每日密码。如果有一本国防军密码本被缴获，那就需要全部替换新的密码本。这里就涉及到密钥的配送问题。</p>
 <ol>
 <li><p>设置Enigma</p>
@@ -1502,13 +1503,13 @@ reader.onload = function() {
 <li>Alice将密文发送给Bob。这样密文就算被窃听也没有关系。</li>
 <li>Bob用私钥进行解密。</li>
 </ol>
-<p><img src="./images/图解密码技术总结/3.1.png" alt=""></p>
+<p><img src="/images/图解密码技术总结/3.1.png" alt=""></p>
 <h5 id="3-2-2-解决密钥配送问题"><a href="#3-2-2-解决密钥配送问题" class="headerlink" title="3.2.2 解决密钥配送问题"></a>3.2.2 解决密钥配送问题</h5><p>因此，我们可以用公钥来加密对称密码的密钥，从而解决密钥配送的问题。</p>
 <h5 id="3-2-3-公钥密码无法解决的问题"><a href="#3-2-3-公钥密码无法解决的问题" class="headerlink" title="3.2.3 公钥密码无法解决的问题"></a>3.2.3 公钥密码无法解决的问题</h5><ol>
 <li>公钥密码的速度只有对称密码的几百分之一。速度问题如何解决。</li>
 <li>如何判断公钥的正确合法性，这个问题是公钥认证的问题。举例：<strong>中间人攻击</strong>，如图</li>
 </ol>
-<p><img src="./images/图解密码技术总结/3.2.png" alt=""></p>
+<p><img src="/images/图解密码技术总结/3.2.png" alt=""></p>
 <h5 id="3-2-4-公钥密码的算法"><a href="#3-2-4-公钥密码的算法" class="headerlink" title="3.2.4 公钥密码的算法"></a>3.2.4 公钥密码的算法</h5><ul>
 <li>算法的核心是利用mod运算（取余运算）</li>
 <li>简单介绍下现在使用最广泛的公钥密码算法 — RSA<ul>
@@ -1527,8 +1528,8 @@ reader.onload = function() {
 <li>用公钥密码加密会话密钥(这就是解决速度问题的方法，因为对称密码的密钥一般比消息本身要短)</li>
 <li>从混合密码系统外部赋予公钥密码加密时使用的密钥</li>
 </ul>
-<h4 id="4-2-混合密码系统的加密过程"><a href="#4-2-混合密码系统的加密过程" class="headerlink" title="4.2 混合密码系统的加密过程"></a>4.2 混合密码系统的加密过程</h4><p><img src="./images/图解密码技术总结/4.1.png" alt=""></p>
-<h4 id="4-3-混合密码系统的解密过程"><a href="#4-3-混合密码系统的解密过程" class="headerlink" title="4.3 混合密码系统的解密过程"></a>4.3 混合密码系统的解密过程</h4><p><img src="./images/图解密码技术总结/4.2.png" alt=""></p>
+<h4 id="4-2-混合密码系统的加密过程"><a href="#4-2-混合密码系统的加密过程" class="headerlink" title="4.2 混合密码系统的加密过程"></a>4.2 混合密码系统的加密过程</h4><p><img src="/images/图解密码技术总结/4.1.png" alt=""></p>
+<h4 id="4-3-混合密码系统的解密过程"><a href="#4-3-混合密码系统的解密过程" class="headerlink" title="4.3 混合密码系统的解密过程"></a>4.3 混合密码系统的解密过程</h4><p><img src="/images/图解密码技术总结/4.2.png" alt=""></p>
 <p>===<br>认证部分</p>
 <p>===</p>
 <h3 id="五-单向散列函数-—-获取消息的“指纹”"><a href="#五-单向散列函数-—-获取消息的“指纹”" class="headerlink" title="五. 单向散列函数 — 获取消息的“指纹”"></a>五. 单向散列函数 — 获取消息的“指纹”</h3><h4 id="5-1-什么是单向散列值（one-way-hash-function）"><a href="#5-1-什么是单向散列值（one-way-hash-function）" class="headerlink" title="5.1 什么是单向散列值（one-way hash function）"></a>5.1 什么是单向散列值（one-way hash function）</h4><ul>
@@ -1563,8 +1564,8 @@ reader.onload = function() {
 <li>消息认证码是输入包括任意长度的消息和一个发送者和接收者之间共享的密钥，它可以输出固定长度的数据，这个数据成为MAC值。</li>
 <li>消息认证码是一种与密钥相关的单向散列函数。如下图</li>
 </ul>
-<p><img src="./images/图解密码技术总结/6.1.png" alt=""></p>
-<h4 id="6-2-消息认证码的使用步骤图"><a href="#6-2-消息认证码的使用步骤图" class="headerlink" title="6.2 消息认证码的使用步骤图"></a>6.2 消息认证码的使用步骤图</h4><p><img src="./images/图解密码技术总结/6.2.png" alt=""></p>
+<p><img src="/images/图解密码技术总结/6.1.png" alt=""></p>
+<h4 id="6-2-消息认证码的使用步骤图"><a href="#6-2-消息认证码的使用步骤图" class="headerlink" title="6.2 消息认证码的使用步骤图"></a>6.2 消息认证码的使用步骤图</h4><p><img src="/images/图解密码技术总结/6.2.png" alt=""></p>
 <h4 id="6-3-消息认证码的密钥的配送问题"><a href="#6-3-消息认证码的密钥的配送问题" class="headerlink" title="6.3 消息认证码的密钥的配送问题"></a>6.3 消息认证码的密钥的配送问题</h4><p>看上图就知道，共享密钥的配送问题依旧存在。解决方法也和对称密码差不多，例如公钥密码，Diffie-Hellman密钥交换等，具体项目具体安排。</p>
 <h4 id="6-4-消息认证码的应用实例"><a href="#6-4-消息认证码的应用实例" class="headerlink" title="6.4 消息认证码的应用实例"></a>6.4 消息认证码的应用实例</h4><ol>
 <li>SWIFT</li>
@@ -1584,9 +1585,9 @@ reader.onload = function() {
 <li>数字签名可以识别篡改和伪装，还可以防止否认。</li>
 <li>数字签名可以看成是公钥密码的<strong>反用</strong>，如图</li>
 </ul>
-<p>公钥密码与数字签名的密钥使用方式<br><img src="./images/图解密码技术总结/7.1.png" alt=""> </p>
-<p>公钥密码<br><img src="./images/图解密码技术总结/7.2.png" alt=""> </p>
-<p>数字签名<br><img src="./images/图解密码技术总结/7.3.png" alt=""> </p>
+<p>公钥密码与数字签名的密钥使用方式<br><img src="/images/图解密码技术总结/7.1.png" alt=""></p>
+<p>公钥密码<br><img src="/images/图解密码技术总结/7.2.png" alt=""></p>
+<p>数字签名<br><img src="/images/图解密码技术总结/7.3.png" alt=""></p>
 <h4 id="7-1-数字签名的方法"><a href="#7-1-数字签名的方法" class="headerlink" title="7.1 数字签名的方法"></a>7.1 数字签名的方法</h4><ul>
 <li>直接对消息签名的方法</li>
 <li>对消息的散列值签名的方法（常用）</li>
@@ -1608,10 +1609,10 @@ reader.onload = function() {
 <li>对单向散列函数的攻击</li>
 <li>利用数字签名攻击公钥密码</li>
 </ol>
-<h4 id="7-5-各类密码技术的对比"><a href="#7-5-各类密码技术的对比" class="headerlink" title="7.5 各类密码技术的对比"></a>7.5 各类密码技术的对比</h4><p><img src="./images/图解密码技术总结/7.4.png" alt=""> </p>
+<h4 id="7-5-各类密码技术的对比"><a href="#7-5-各类密码技术的对比" class="headerlink" title="7.5 各类密码技术的对比"></a>7.5 各类密码技术的对比</h4><p><img src="/images/图解密码技术总结/7.4.png" alt=""></p>
 <p>===</p>
 <h3 id="八-证书-—-为公钥加上数字签名"><a href="#八-证书-—-为公钥加上数字签名" class="headerlink" title="八 证书 — 为公钥加上数字签名"></a>八 证书 — 为公钥加上数字签名</h3><h4 id="8-1-什么是证书"><a href="#8-1-什么是证书" class="headerlink" title="8.1 什么是证书"></a>8.1 什么是证书</h4><p>公钥证书（Public-Key Certificae，PKC）：里面记有姓名、组织、邮箱地址等个人信息，以及属于此人的<strong>公钥</strong>，并由<strong>认证机构</strong>（Certification Authority、Certifying Authority， CA）施加数字签名。只要看到公钥证书，我们就可以知道认证机构认定该公钥的确属于此人。公钥证书简称为证书（certificate）</p>
-<h4 id="8-2-证书的应用场景"><a href="#8-2-证书的应用场景" class="headerlink" title="8.2 证书的应用场景"></a>8.2 证书的应用场景</h4><p><img src="./images/图解密码技术总结/8.1.png" alt=""> </p>
+<h4 id="8-2-证书的应用场景"><a href="#8-2-证书的应用场景" class="headerlink" title="8.2 证书的应用场景"></a>8.2 证书的应用场景</h4><p><img src="/images/图解密码技术总结/8.1.png" alt=""></p>
 <h4 id="8-3-公钥基础设施（PKI）"><a href="#8-3-公钥基础设施（PKI）" class="headerlink" title="8.3 公钥基础设施（PKI）"></a>8.3 公钥基础设施（PKI）</h4><p>就是为了能够更有效的运用公钥而制定的一系列规范和规格的总称。</p>
 <p>组成要素：</p>
 <ul>
@@ -1627,7 +1628,7 @@ reader.onload = function() {
 <p>  上面三种性质中，越往下越严格。</p>
 </li>
 </ul>
-<p><img src="./images/图解密码技术总结/9.1.png" alt=""> </p>
+<p><img src="/images/图解密码技术总结/9.1.png" alt=""></p>
 <ul>
 <li>对于软件所生成的数列，周期必定是有限的。凡是有限周期的数列，都不具备不可重现性。</li>
 <li>要生成不可重现的随机书里额，需要从不可重现的物理现象中获取信息。</li>
@@ -1638,15 +1639,15 @@ reader.onload = function() {
 <li>综合运用了前面提到的技术：对称密码、消息认证码、公钥密码、数字签名、伪随机数生成器等密码技术。</li>
 </ul>
 <p>===</p>
-<h3 id="十一-密码技术与现实社会"><a href="#十一-密码技术与现实社会" class="headerlink" title="十一 密码技术与现实社会"></a>十一 密码技术与现实社会</h3><h4 id="11-1-密码学家的工具箱"><a href="#11-1-密码学家的工具箱" class="headerlink" title="11.1 密码学家的工具箱"></a>11.1 密码学家的工具箱</h4><p><img src="./images/图解密码技术总结/11.1.png" alt=""></p>
-<h4 id="11-2-密码技术与压缩技术"><a href="#11-2-密码技术与压缩技术" class="headerlink" title="11.2 密码技术与压缩技术"></a>11.2 密码技术与压缩技术</h4><p><img src="./images/图解密码技术总结/11.2.png" alt=""></p>
+<h3 id="十一-密码技术与现实社会"><a href="#十一-密码技术与现实社会" class="headerlink" title="十一 密码技术与现实社会"></a>十一 密码技术与现实社会</h3><h4 id="11-1-密码学家的工具箱"><a href="#11-1-密码学家的工具箱" class="headerlink" title="11.1 密码学家的工具箱"></a>11.1 密码学家的工具箱</h4><p><img src="/images/图解密码技术总结/11.1.png" alt=""></p>
+<h4 id="11-2-密码技术与压缩技术"><a href="#11-2-密码技术与压缩技术" class="headerlink" title="11.2 密码技术与压缩技术"></a>11.2 密码技术与压缩技术</h4><p><img src="/images/图解密码技术总结/11.2.png" alt=""></p>
 <ul>
 <li>密钥是机密性的精华</li>
 <li>散列值是完整性的精华</li>
 <li>认证符号（MAC值和签名）是认证的精华</li>
 <li>种子是不可预测性的精华</li>
 </ul>
-<p><img src="./images/图解密码技术总结/11.3.png" alt=""></p>
+<p><img src="/images/图解密码技术总结/11.3.png" alt=""></p>
 <h4 id="11-3-只有完美的密码，没有完美的人"><a href="#11-3-只有完美的密码，没有完美的人" class="headerlink" title="11.3 只有完美的密码，没有完美的人"></a>11.3 只有完美的密码，没有完美的人</h4>
           
         
