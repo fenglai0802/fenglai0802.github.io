@@ -803,10 +803,10 @@ s = s.replace(reg, 32sp);
   
   <entry>
     <title>鼠标跟随旋转效果实现</title>
-    <link href="https://fenglai0802.github.io/2016/08/04/%E9%BC%A0%E6%A0%87%E8%B7%9F%E9%9A%8F%E6%97%8B%E8%BD%AC%E6%95%88%E6%9E%9C%E5%AE%9E%E7%8E%B0/"/>
-    <id>https://fenglai0802.github.io/2016/08/04/鼠标跟随旋转效果实现/</id>
+    <link href="https://fenglai0802.github.io/2016/08/04/%E9%BC%A0%E6%A0%87%E8%B7%9F%E9%9A%8F3D%E8%BD%AC%E5%8A%A8/"/>
+    <id>https://fenglai0802.github.io/2016/08/04/鼠标跟随3D转动/</id>
     <published>2016-08-03T16:30:11.000Z</published>
-    <updated>2017-03-10T08:50:13.000Z</updated>
+    <updated>2017-03-10T08:52:49.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="鼠标跟随的3D转动"><a href="#鼠标跟随的3D转动" class="headerlink" title="鼠标跟随的3D转动"></a>鼠标跟随的3D转动</h3><p>首先，甩一枚简单的<a href="http://runjs.cn/detail/1hnseaw3" target="_blank" rel="external">demo</a>看下要实现的效果。点击右下角可查看源码。</p>
 <p>ok，直接开干，这个demo里面主要用到了两个属性：<code>transform</code>和<code>perspective</code>。分别可以设置3D和透视投影的效果。</p>
